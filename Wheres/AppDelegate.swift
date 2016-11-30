@@ -8,18 +8,53 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: - Properties
+    //
+    //-------------------------------------------------------------------------
 
     var window: UIWindow?
+    
+    var wheres:Wheres!;
+    var viewModel:MainViewModel!;
 
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: - UIApplicationDelegate
+    //
+    //-------------------------------------------------------------------------
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Firebase configuration
         
         FIRApp.configure()
+        
+        // Create Model
+        
+        self.wheres = Wheres()
+        
+        // Creates main ViewModel and injects Model into it
+        
+        self.viewModel = MainViewModel(wheres: self.wheres)
+        
+        if let mainViewController = self.window?.rootViewController as? ViewController
+        {
+            mainViewController.viewModel = viewModel;
+        }
+        
+        // Fast check if there is current user
+        
+        if FIRAuth.auth()?.currentUser == nil
+        {
+            showAuthScreen()
+        }
         
         return true
     }
@@ -46,6 +81,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: - Navigation
+    //
+    //-------------------------------------------------------------------------
+
+    func showAuthScreen()
+    {
+        guard !(self.window?.rootViewController is SignInViewController) else {
+            return
+        }
+        
+        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        
+        let signInViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController;
+        signInViewController.viewModel = self.viewModel.newAuthViewModel()
+        
+        self.window?.rootViewController = signInViewController;
+
+    }
+    
+    func showMainScreen()
+    {
+        guard !(self.window?.rootViewController is ViewController) else {
+            return
+        }
+        
+        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        
+        let mainViewController = storyboard.instantiateInitialViewController() as! ViewController
+        mainViewController.viewModel = self.viewModel;
+        
+        self.window?.rootViewController = mainViewController;
+    }
 
 }
 

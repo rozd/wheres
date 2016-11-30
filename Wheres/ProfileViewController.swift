@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  Wheres
 //
 //  Created by Max Rozdobudko on 11/30/16.
@@ -7,28 +7,27 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class ViewController: UINavigationController, UINavigationControllerDelegate
+class ProfileViewController: UIViewController
 {
     //--------------------------------------------------------------------------
     //
-    //  MARK: Properties
+    //  MARK: - Properties
     //
     //--------------------------------------------------------------------------
     
-    var viewModel:MainViewModel!;
-    
+    var viewModel: AuthViewModel!
+
     //--------------------------------------------------------------------------
     //
-    //  MARK: Overridden methods
+    //  MARK: - Overridden methods
     //
     //--------------------------------------------------------------------------
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        self.delegate = self;
     }
 
     override func didReceiveMemoryWarning()
@@ -38,20 +37,16 @@ class ViewController: UINavigationController, UINavigationControllerDelegate
     
     //--------------------------------------------------------------------------
     //
-    //  MARK: Methods
+    //  MARK: - Methods
     //
     //--------------------------------------------------------------------------
 
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool)
+    //-------------------------------------
+    //  MARK: Actions
+    //-------------------------------------
+
+    @IBAction func signOutButtonTapped(_ sender: Any)
     {
-        if let mapViewController = viewController as? MapViewController
-        {
-            mapViewController.viewModel = self.viewModel.newMapViewModel()
-        }
-        else if let profileController = viewController as? ProfileViewController
-        {
-            profileController.viewModel = self.viewModel.newAuthViewModel();
-        }
+        self.viewModel.signOut()
     }
 }
-
