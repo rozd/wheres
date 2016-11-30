@@ -10,6 +10,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="hGA-V1-qkr">
+            <objects>
+                <viewController id="ID1-xi-o7U" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w7u-Uw-WkB"/>
+                        <viewControllerLayoutGuide type="bottom" id="CFQ-vg-Z7g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qIZ-qr-WqB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWY-x0-YBC">
+                                <rect key="frame" x="149.5" y="323" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EWY-x0-YBC" firstAttribute="centerY" secondItem="qIZ-qr-WqB" secondAttribute="centerY" id="3YY-sK-OOG"/>
+                            <constraint firstItem="EWY-x0-YBC" firstAttribute="centerX" secondItem="qIZ-qr-WqB" secondAttribute="centerX" id="kbT-De-KL2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="G1j-5b-4Db"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dCB-nK-fxB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-596" y="-365"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -33,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="972" y="-4.0479760119940034"/>
+            <point key="canvasLocation" x="81" y="-4"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="HFj-Z6-45p">
@@ -65,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eku-C6-7zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="-4"/>
+            <point key="canvasLocation" x="902" y="-4"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="agp-Lz-5d7">
@@ -129,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sib-IF-Z2n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="33" y="-691"/>
+            <point key="canvasLocation" x="81" y="-691"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="LV5-cJ-nwg">
@@ -205,12 +236,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4Mv-Ta-SNG"/>
+                        <segue destination="ID1-xi-o7U" kind="relationship" relationship="rootViewController" id="AHw-sD-asW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mkh-Ri-d7J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="-4.0479760119940034"/>
+            <point key="canvasLocation" x="-1350" y="-364"/>
         </scene>
     </scenes>
 </document>

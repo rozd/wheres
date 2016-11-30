@@ -10,7 +10,13 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class Account
+extension Notification.Name
+{
+    public static let AccountUserDidLogin = Notification.Name("AccountUserDidLogin")
+    public static let AccountUserDidLogout = Notification.Name("AccountUserDidLogout")
+}
+
+class Account : NSObject
 {
     //--------------------------------------------------------------------------
     //
@@ -18,8 +24,10 @@ class Account
     //
     //--------------------------------------------------------------------------
     
-    init()
+    override init()
     {
+        super.init()
+        
         _stateChangeHandler = FIRAuth.auth()?.addStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
             
             self.currentUser = user
@@ -54,11 +62,11 @@ class Account
         {
             if currentUser != nil
             {
-                self.showMainScreen()
+                NotificationCenter.default.post(name: .AccountUserDidLogin, object: nil)
             }
             else
             {
-                self.showAuthScreen()
+                NotificationCenter.default.post(name: .AccountUserDidLogout, object: nil)
             }
         }
     }
@@ -154,21 +162,5 @@ class Account
         }
         
         return nil
-    }
-
-    private func showAuthScreen()
-    {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        {
-            appDelegate.showAuthScreen()
-        }
-    }
-    
-    private func showMainScreen()
-    {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        {
-            appDelegate.showMainScreen()
-        }
     }
 }

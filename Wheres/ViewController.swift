@@ -44,7 +44,15 @@ class ViewController: UINavigationController, UINavigationControllerDelegate
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool)
     {
-        if let mapViewController = viewController as? MapViewController
+        if let signInViewController = viewController as? SignInViewController
+        {
+            signInViewController.viewModel = self.viewModel.newAuthViewModel()
+        }
+        else if let signUpViewController = viewController as? SignUpViewController
+        {
+            signUpViewController.viewModel = self.viewModel.newAuthViewModel()
+        }
+        else if let mapViewController = viewController as? MapViewController
         {
             mapViewController.viewModel = self.viewModel.newMapViewModel()
         }

@@ -61,14 +61,6 @@ class SignInViewController: UIViewController
     //
     //-------------------------------------------------------------------------
     
-    func showMainScreen()
-    {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        {
-            appDelegate.showMainScreen()
-        }
-    }
-    
     //------------------------------------
     //  MARK: Actions
     //------------------------------------

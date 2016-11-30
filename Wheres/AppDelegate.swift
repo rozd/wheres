@@ -20,10 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     //-------------------------------------------------------------------------
 
     var window: UIWindow?
+    var mainViewController: ViewController?
     
-    var wheres:Wheres!;
-    var viewModel:MainViewModel!;
+    var wheres:Wheres!
+    var viewModel:MainViewModel!
 
+    private var isLoggedIn:Bool?
+    
     //-------------------------------------------------------------------------
     //
     //  MARK: - UIApplicationDelegate
@@ -36,6 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         FIRApp.configure()
         
+        // Subscribe to notifications
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handleAccountUserDidLogin), name: .AccountUserDidLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handleAccountUserDidLogout), name: .AccountUserDidLogout, object: nil)
+        
         // Create Model
         
         self.wheres = Wheres()
@@ -46,14 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         if let mainViewController = self.window?.rootViewController as? ViewController
         {
-            mainViewController.viewModel = viewModel;
-        }
-        
-        // Fast check if there is current user
-        
-        if FIRAuth.auth()?.currentUser == nil
-        {
-            showAuthScreen()
+            self.mainViewController = mainViewController
+            self.mainViewController?.viewModel = viewModel;
         }
         
         return true
@@ -87,34 +89,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     //
     //-------------------------------------------------------------------------
 
-    func showAuthScreen()
+    private func showAuthScreen()
     {
-        guard !(self.window?.rootViewController is SignInViewController) else {
+        guard isLoggedIn == nil || isLoggedIn! == true else {
             return
         }
         
-        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        isLoggedIn = false
         
-        let signInViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController;
-        signInViewController.viewModel = self.viewModel.newAuthViewModel()
-        
-        self.window?.rootViewController = signInViewController;
-
+        if let mainViewController = self.mainViewController
+        {
+            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+            
+            let signInViewController = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController;
+            
+            mainViewController.setViewControllers([signInViewController], animated: true)
+        }
     }
     
-    func showMainScreen()
+    private func showMainScreen()
     {
-        guard !(self.window?.rootViewController is ViewController) else {
+        guard isLoggedIn == nil || isLoggedIn! == false else {
             return
         }
         
-        let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+        isLoggedIn = true
         
-        let mainViewController = storyboard.instantiateInitialViewController() as! ViewController
-        mainViewController.viewModel = self.viewModel;
-        
-        self.window?.rootViewController = mainViewController;
+        if let mainViewController = self.mainViewController
+        {
+            let storyboard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil);
+            
+            let mapViewController = storyboard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController;
+            
+            mainViewController.setViewControllers([mapViewController], animated: true)
+        }
     }
+    
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: - Notification handlers
+    //
+    //-------------------------------------------------------------------------
 
+    func handleAccountUserDidLogin(notification:Notification)
+    {
+        showMainScreen()
+    }
+    
+    func handleAccountUserDidLogout(notification:Notification)
+    {
+        showAuthScreen()
+    }
 }
 
