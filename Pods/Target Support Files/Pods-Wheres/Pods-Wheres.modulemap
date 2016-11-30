@@ -1,0 +1,6 @@
+framework module Pods_Wheres {
+  umbrella header "Pods-Wheres-umbrella.h"
+
+  export *
+  module * { export * }
+}
