@@ -47,6 +47,7 @@
 		50B7346B1DEF6A4500AA77CB /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		50B734701DF0663600AA77CB /* UIImageRoutines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageRoutines.swift; sourceTree = "<group>"; };
+		50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wheres-Bridging-Header.h"; sourceTree = "<group>"; };
 		CB43BC911AE36DE642BDFFE1 /* Pods-Wheres.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.debug.xcconfig"; sourceTree = "<group>"; };
 		FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wheres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,6 +106,7 @@
 				50B7344D1DEF280000AA77CB /* LaunchScreen.storyboard */,
 				50B734501DEF280100AA77CB /* Info.plist */,
 				50B734561DEF287400AA77CB /* GoogleService-Info.plist */,
+				50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */,
 			);
 			path = Wheres;
 			sourceTree = "<group>";
@@ -193,6 +195,9 @@
 						DevelopmentTeam = GL9F4DL9W9;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
