@@ -59,7 +59,7 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
 
-    var currentUser: FIRUser?
+    dynamic var currentUser: FIRUser?
     {
         didSet
         {
@@ -169,8 +169,17 @@ class Account : NSObject
                         {
                             self.showMessage(message: error!.localizedDescription, withTitle: "Error")
                             
-                            // TODO: back to previos photo
+                            // Back to previos photo
+                            
+                            self.currentUser?.willChangeValue(forKey: "profileURL")
+                            self.currentUser?.didChangeValue(forKey: "profileURL")
                         }
+                        
+                        // Back to previos photo
+                        
+                        self.willChangeValue(forKey: "currentUser")
+                        self.didChangeValue(forKey: "currentUser")
+
                     })
                 }
             }
@@ -178,7 +187,10 @@ class Account : NSObject
             {
                 self.showMessage(message: error!.localizedDescription, withTitle: "Error")
                 
-                // TODO: back to previos photo
+                // Back to previos photo
+                
+                self.currentUser?.willChangeValue(forKey: "profileURL")
+                self.currentUser?.didChangeValue(forKey: "profileURL")
             }
         }
     

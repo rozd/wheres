@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     {
         print("ProfileViewController.deinit")
         
-        self.viewModel.account.removeObserver(self, forKeyPath: "currentUser.profileURL")
+        self.viewModel.account.removeObserver(self, forKeyPath: "currentUser")
     }
     
     //--------------------------------------------------------------------------
@@ -49,8 +49,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.avatarImageView.isUserInteractionEnabled = true
         self.avatarImageView.addGestureRecognizer(tapGestureRecogniser)
         
-        self.viewModel.account.addObserver(self, forKeyPath: "currentUser.profileURL", options: .new, context: nil)
-        self.viewModel.account.addObserver(self, forKeyPath: "currentUser.profileURL", options: .initial, context: nil)
+        self.viewModel.account.addObserver(self, forKeyPath: "currentUser", options: .initial, context: nil)
     }
 
     override func didReceiveMemoryWarning()
@@ -173,7 +172,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     {
-        if let keyPath = keyPath, keyPath == "currentUser.profileURL"
+        if let keyPath = keyPath, keyPath == "currentUser"
         {
             refreshAvatar()
         }
