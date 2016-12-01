@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		08F23EC08562767268A03731 /* Pods_Wheres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */; };
 		50B734451DEF27FE00AA77CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734441DEF27FE00AA77CB /* AppDelegate.swift */; };
-		50B734471DEF27FE00AA77CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734461DEF27FE00AA77CB /* ViewController.swift */; };
+		50B734471DEF27FE00AA77CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734461DEF27FE00AA77CB /* MainViewController.swift */; };
 		50B7344A1DEF280000AA77CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B734481DEF280000AA77CB /* Main.storyboard */; };
 		50B7344C1DEF280000AA77CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50B7344B1DEF280000AA77CB /* Assets.xcassets */; };
 		50B7344F1DEF280000AA77CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B7344D1DEF280000AA77CB /* LaunchScreen.storyboard */; };
@@ -23,13 +23,14 @@
 		50B7346A1DEF606700AA77CB /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734691DEF606700AA77CB /* Account.swift */; };
 		50B7346C1DEF6A4500AA77CB /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346B1DEF6A4500AA77CB /* MainViewModel.swift */; };
 		50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */; };
+		50B734711DF0663600AA77CB /* UIImageRoutines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734701DF0663600AA77CB /* UIImageRoutines.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		341F0BBD4EF97A09C0C43E23 /* Pods-Wheres.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.release.xcconfig"; sourceTree = "<group>"; };
 		50B734411DEF27FD00AA77CB /* Wheres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B734441DEF27FE00AA77CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		50B734461DEF27FE00AA77CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		50B734461DEF27FE00AA77CB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		50B734491DEF280000AA77CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		50B7344B1DEF280000AA77CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50B7344E1DEF280000AA77CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -45,6 +46,7 @@
 		50B734691DEF606700AA77CB /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		50B7346B1DEF6A4500AA77CB /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		50B734701DF0663600AA77CB /* UIImageRoutines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageRoutines.swift; sourceTree = "<group>"; };
 		CB43BC911AE36DE642BDFFE1 /* Pods-Wheres.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.debug.xcconfig"; sourceTree = "<group>"; };
 		FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wheres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,12 +93,13 @@
 		50B734431DEF27FD00AA77CB /* Wheres */ = {
 			isa = PBXGroup;
 			children = (
+				50B7346F1DF062FC00AA77CB /* Helpers */,
 				50B734641DEF593E00AA77CB /* Models */,
 				50B734631DEF592F00AA77CB /* ViewModels */,
 				50B734591DEF437E00AA77CB /* ViewControllers */,
 				50B734581DEF42A400AA77CB /* Wheres.entitlements */,
 				50B734441DEF27FE00AA77CB /* AppDelegate.swift */,
-				50B734461DEF27FE00AA77CB /* ViewController.swift */,
+				50B734461DEF27FE00AA77CB /* MainViewController.swift */,
 				50B734481DEF280000AA77CB /* Main.storyboard */,
 				50B7344B1DEF280000AA77CB /* Assets.xcassets */,
 				50B7344D1DEF280000AA77CB /* LaunchScreen.storyboard */,
@@ -134,6 +137,14 @@
 				50B734691DEF606700AA77CB /* Account.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		50B7346F1DF062FC00AA77CB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				50B734701DF0663600AA77CB /* UIImageRoutines.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		E61535793EBC0E6AE67A29AD /* Frameworks */ = {
@@ -275,7 +286,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B734621DEF579F00AA77CB /* ProfileViewController.swift in Sources */,
-				50B734471DEF27FE00AA77CB /* ViewController.swift in Sources */,
+				50B734471DEF27FE00AA77CB /* MainViewController.swift in Sources */,
+				50B734711DF0663600AA77CB /* UIImageRoutines.swift in Sources */,
 				50B734451DEF27FE00AA77CB /* AppDelegate.swift in Sources */,
 				50B734661DEF598400AA77CB /* AuthViewModel.swift in Sources */,
 				50B7345B1DEF43DB00AA77CB /* SignInViewController.swift in Sources */,

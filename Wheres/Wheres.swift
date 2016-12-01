@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
+let WheresFirebaseStorageURL = "gs://whres-d5103.appspot.com"
+
 class Wheres
 {
     //--------------------------------------------------------------------------

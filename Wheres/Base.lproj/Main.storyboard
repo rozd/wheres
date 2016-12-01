@@ -85,14 +85,36 @@
                                     <action selector="signOutButtonTapped:" destination="omA-9q-rGj" eventType="touchUpInside" id="Y4M-ZZ-zcr"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tR3-HH-QMg">
+                                <rect key="frame" x="123" y="100" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="Qoz-6K-t0v"/>
+                                    <constraint firstAttribute="height" constant="128" id="hEM-0N-QV9"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hus-CK-fb7">
+                                <rect key="frame" x="16" y="236" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="hus-CK-fb7" secondAttribute="trailing" id="7bh-2w-Jln"/>
+                            <constraint firstItem="hus-CK-fb7" firstAttribute="leading" secondItem="i51-o1-1XZ" secondAttribute="leadingMargin" id="81W-KF-KIZ"/>
+                            <constraint firstItem="tR3-HH-QMg" firstAttribute="top" secondItem="po6-Hc-q1K" secondAttribute="bottom" constant="80" id="Bqd-uY-g7s"/>
+                            <constraint firstItem="tR3-HH-QMg" firstAttribute="centerX" secondItem="i51-o1-1XZ" secondAttribute="centerX" id="Bv4-Mu-nQO"/>
+                            <constraint firstItem="hus-CK-fb7" firstAttribute="top" secondItem="tR3-HH-QMg" secondAttribute="bottom" constant="8" id="M8T-7Q-Kdc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cpt-GN-E2E" secondAttribute="trailing" id="Qph-Te-0uo"/>
                             <constraint firstItem="cpt-GN-E2E" firstAttribute="leading" secondItem="i51-o1-1XZ" secondAttribute="leadingMargin" id="Qx1-wi-iON"/>
                             <constraint firstItem="8Ss-By-jVM" firstAttribute="top" secondItem="cpt-GN-E2E" secondAttribute="bottom" constant="20" id="WKw-dX-rPe"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="avatarImageView" destination="tR3-HH-QMg" id="EaT-GI-bQl"/>
+                        <outlet property="usernameLabel" destination="hus-CK-fb7" id="7e3-5z-6vi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eku-C6-7zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -225,10 +247,10 @@
             </objects>
             <point key="canvasLocation" x="902" y="-691"/>
         </scene>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="Xw3-gz-b8k">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUV-L9-QOi" customClass="ViewController" customModule="Wheres" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hUV-L9-QOi" customClass="MainViewController" customModule="Wheres" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q8M-MC-Tbl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

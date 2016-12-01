@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class AuthViewModel
+class AuthViewModel : NSObject
 {
     //--------------------------------------------------------------------------
     //
@@ -57,5 +57,10 @@ class AuthViewModel
     func signOut()
     {
         account.signOut()
+    }
+    
+    func changeAvatar(newAvatar image: UIImage)
+    {
+        account.changeAvatar(newAvatar: image)
     }
 }

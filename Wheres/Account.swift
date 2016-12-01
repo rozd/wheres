@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 extension Notification.Name
 {
@@ -48,6 +49,8 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
     
+    private lazy var storageRef = FIRStorage.storage().reference(forURL: WheresFirebaseStorageURL)
+    
     private var _stateChangeHandler:FIRAuthStateDidChangeListenerHandle?
 
     //--------------------------------------------------------------------------
@@ -78,7 +81,7 @@ class Account : NSObject
     //--------------------------------------------------------------------------
 
     //-------------------------------------
-    //  Public API
+    //  Methods: Authentication
     //-------------------------------------
     
     func signIn(withEmail email:String, password:String)
@@ -130,7 +133,57 @@ class Account : NSObject
             showMessage(message: error.localizedDescription, withTitle: "Error")
         }
     }
+    
+    //-------------------------------------
+    //  Methods: Profile
+    //-------------------------------------
 
+    func changeAvatar(newAvatar image: UIImage)
+    {
+        guard let currentUser = FIRAuth.auth()?.currentUser else {
+            return
+        }
+        
+        guard let middleAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 256, height: 256)) else {
+            return
+        }
+        
+        let avatarRef = storageRef.child("users/\(currentUser.uid)/public-data/avatar/middle")
+        
+        let inputMetadata = FIRStorageMetadata()
+        inputMetadata.contentType = "image/png"
+        
+        let imageData = UIImagePNGRepresentation(middleAvatar)!
+        
+        let _ = avatarRef.put(imageData, metadata: inputMetadata) { (outputMetadata: FIRStorageMetadata?, error:Error?) in
+            
+            if error == nil
+            {
+                if let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                {
+                    changeRequest.photoURL = outputMetadata?.downloadURL()
+                    
+                    changeRequest.commitChanges(completion: { (error:Error?) in
+                        
+                        if error != nil
+                        {
+                            self.showMessage(message: error!.localizedDescription, withTitle: "Error")
+                            
+                            // TODO: back to previos photo
+                        }
+                    })
+                }
+            }
+            else
+            {
+                self.showMessage(message: error!.localizedDescription, withTitle: "Error")
+                
+                // TODO: back to previos photo
+            }
+        }
+    
+    }
+    
     //-------------------------------------
     //  Methods: Internal
     //-------------------------------------

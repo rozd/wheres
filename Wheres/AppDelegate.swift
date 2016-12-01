@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     //-------------------------------------------------------------------------
 
     var window: UIWindow?
-    var mainViewController: ViewController?
+    var mainViewController: MainViewController?
     
     var wheres:Wheres!
     var viewModel:MainViewModel!
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         self.viewModel = MainViewModel(wheres: self.wheres)
         
-        if let mainViewController = self.window?.rootViewController as? ViewController
+        if let mainViewController = self.window?.rootViewController as? MainViewController
         {
             self.mainViewController = mainViewController
             self.mainViewController?.viewModel = viewModel;
