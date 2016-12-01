@@ -66,30 +66,32 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     private func startTrackLocation()
     {
-        guard !isLocationTracking else {
-            return
-        }
-        
-        switch CLLocationManager.authorizationStatus()
+        if !isLocationTracking
         {
+            switch CLLocationManager.authorizationStatus()
+            {
             case .notDetermined :
                 manager.requestAlwaysAuthorization()
-            
+                
             case .authorizedAlways, .authorizedWhenInUse :
                 manager.startUpdatingLocation()
-            
+                
             default:
                 print("Not allowed")
+            }
         }
     }
     
     private func stopTrackLocation()
     {
-        guard isLocationTracking else {
-            return
+        if isLocationTracking
+        {
+            guard isLocationTracking else {
+                return
+            }
+            
+            manager.stopUpdatingLocation()            
         }
-        
-        manager.stopUpdatingLocation()
     }
     
     //--------------------------------------------------------------------------
