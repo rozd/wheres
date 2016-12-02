@@ -10,8 +10,19 @@ import Foundation
 import CoreLocation
 import FirebaseDatabase
 
-class User
+class User : Equatable
 {
+    //--------------------------------------------------------------------------
+    //
+    //  MARK: - Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    public static func ==(lhs: User, rhs: User) -> Bool
+    {
+        return lhs.uid == rhs.uid
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  MARK: - Lifecycle

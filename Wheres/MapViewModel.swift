@@ -14,7 +14,8 @@ import GeoFire
 protocol MapViewModelDelegate : class
 {
     func mapViewModelDidUserAdded(user: User)
-    func mapViewModelDidUserRemoved(user: User, fromIndex index: Int)
+    func mapViewModelDidUserRemoved(user: User, atIndex index: Int)
+    func mapViewModelDidUserChanged(user: User, atIndex index: Int)
     func mapViewModelDidUsersChange(users:[User])
     
     func mapViewModelDidUserAnnotationAdded(annotation: UserAnnotation)
@@ -112,6 +113,7 @@ class MapViewModel
             let user = User(snapshot: snapshot)
             
             self.users.append(user)
+            self.usersMap[user.uid] = user
             
             self.delegate?.mapViewModelDidUserAdded(user: user)
         })
@@ -123,8 +125,9 @@ class MapViewModel
                 if user.uid == snapshot.key
                 {
                     self.users.remove(at: index)
+                    self.usersMap.removeValue(forKey: user.uid)
                     
-                    self.delegate?.mapViewModelDidUserRemoved(user: user, fromIndex: index)
+                    self.delegate?.mapViewModelDidUserRemoved(user: user, atIndex: index)
                     
                     break
                 }
@@ -156,12 +159,17 @@ class MapViewModel
                 
                 if let key = key, let annotation = self.annotationsMap[key], let location = location
                 {
-//                    if let user = self.usersMap[key]
-//                    {
-//                        user.location = location
-//                    }
-                    
-                    annotation.coordinate = location.coordinate
+                    if let user = self.usersMap[key]
+                    {
+                        user.location = location
+                        
+                        self.delegate?.mapViewModelDidUserChanged(user: user, atIndex: self.users.index(of: user)!)
+                    }
+
+                    UIView.animate(withDuration: 2.0, animations: {
+                        
+                        annotation.coordinate = location.coordinate
+                    })
                 }
             })
             

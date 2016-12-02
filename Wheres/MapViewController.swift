@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MapViewModelDelegate, UITableViewDataSource, MKMapViewDelegate
+class MapViewController: UIViewController, MapViewModelDelegate, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate
 {
     //-------------------------------------------------------------------------
     //
@@ -36,7 +36,9 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         self.viewModel.monitorUsers()
         self.viewModel.monitorLocations(within: self.mapView.region)
         
+        self.usersTableView.delegate = self
         self.usersTableView.dataSource = self
+        
         self.mapView.delegate = self
     }
 
@@ -47,12 +49,12 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
     
     //-------------------------------------------------------------------------
     //
-    //  MARK: Delegates
+    //  Delegates
     //
     //-------------------------------------------------------------------------
     
     //-------------------------------------
-    //  MapViewModelDelegate
+    //  MARK: - MapViewModelDelegate
     //-------------------------------------
     
     func mapViewModelDidUserAdded(user: User)
@@ -63,7 +65,7 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         self.usersTableView.insertRows(at: [indexPath], with: .top)
     }
     
-    func mapViewModelDidUserRemoved(user: User, fromIndex index: Int)
+    func mapViewModelDidUserRemoved(user: User, atIndex index: Int)
     {
         let indexPath = IndexPath(row: index, section: 0)
         
@@ -75,8 +77,31 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         self.usersTableView.reloadData()
     }
     
+    func mapViewModelDidUserChanged(user: User, atIndex index: Int)
+    {
+        if let cell = self.usersTableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FriendViewCell
+        {
+            if let friendLocation = user.location, let myLocation = self.mapView.userLocation.location
+            {
+                let distance = myLocation.distance(from: friendLocation)
+                
+                cell.distanceLabel.text = MKDistanceFormatter().string(fromDistance: distance)
+            }
+        }
+    }
+    
+    func mapViewModelDidUserAnnotationAdded(annotation: UserAnnotation)
+    {
+        self.mapView.addAnnotation(annotation)
+    }
+    
+    func mapViewModelDidUserAnnotationRemoved(annotation: UserAnnotation)
+    {
+        self.mapView.removeAnnotation(annotation)
+    }
+    
     //-------------------------------------
-    //  UITableViewDataSource
+    //  MARK: UITableViewDataSource
     //-------------------------------------
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -91,11 +116,33 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendViewCell") as! FriendViewCell
         cell.displayNameLabel.text = user.displayName
         
+        if let friendLocation = user.location, let myLocation = self.mapView.userLocation.location
+        {
+            let distance = myLocation.distance(from: friendLocation)
+            
+            cell.distanceLabel.text = MKDistanceFormatter().string(fromDistance: distance)
+        }
+        
         return cell
     }
     
     //-------------------------------------
-    //  MKMapViewDelegate
+    //  MARK: UITableViewDataSource
+    //-------------------------------------
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let user = self.viewModel.users[indexPath.row]
+        
+        if let location = user.location
+        {
+            self.mapView.setCenter(location.coordinate, animated: true)
+        }
+        
+    }
+    
+    //-------------------------------------
+    //  MARK: MKMapViewDelegate
     //-------------------------------------
     
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool)
@@ -117,13 +164,8 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         return nil
     }
     
-    func mapViewModelDidUserAnnotationAdded(annotation: UserAnnotation)
+    public func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation)
     {
-        self.mapView.addAnnotation(annotation)
-    }
-    
-    func mapViewModelDidUserAnnotationRemoved(annotation: UserAnnotation)
-    {
-        self.mapView.removeAnnotation(annotation)
+        self.usersTableView.reloadData()
     }
 }
