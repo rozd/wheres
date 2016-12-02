@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08F23EC08562767268A03731 /* Pods_Wheres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */; };
+		5094A6B81DF1E5D7007E2875 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5094A6B71DF1E5D7007E2875 /* User.swift */; };
 		50B734451DEF27FE00AA77CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734441DEF27FE00AA77CB /* AppDelegate.swift */; };
 		50B734471DEF27FE00AA77CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734461DEF27FE00AA77CB /* MainViewController.swift */; };
 		50B7344A1DEF280000AA77CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B734481DEF280000AA77CB /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		341F0BBD4EF97A09C0C43E23 /* Pods-Wheres.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.release.xcconfig"; sourceTree = "<group>"; };
+		5094A6B71DF1E5D7007E2875 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		50B734411DEF27FD00AA77CB /* Wheres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B734441DEF27FE00AA77CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50B734461DEF27FE00AA77CB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				50B734671DEF5E5A00AA77CB /* Wheres.swift */,
 				50B734691DEF606700AA77CB /* Account.swift */,
+				5094A6B71DF1E5D7007E2875 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				50B734451DEF27FE00AA77CB /* AppDelegate.swift in Sources */,
 				50B734661DEF598400AA77CB /* AuthViewModel.swift in Sources */,
 				50B7345B1DEF43DB00AA77CB /* SignInViewController.swift in Sources */,
+				5094A6B81DF1E5D7007E2875 /* User.swift in Sources */,
 				50B7346C1DEF6A4500AA77CB /* MainViewModel.swift in Sources */,
 				50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */,
 				50B7346A1DEF606700AA77CB /* Account.swift in Sources */,

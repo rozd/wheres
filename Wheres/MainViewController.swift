@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MainViewController: UINavigationController, UINavigationControllerDelegate
 {
     //--------------------------------------------------------------------------
@@ -17,17 +18,6 @@ class MainViewController: UINavigationController, UINavigationControllerDelegate
     //--------------------------------------------------------------------------
     
     var viewModel:MainViewModel!;
-    
-    override var viewControllers: [UIViewController]
-    {
-        didSet
-        {
-            for viewController in self.viewControllers
-            {
-                self.setViewModelFor(viewController: viewController)
-            }
-        }
-    }
     
     //--------------------------------------------------------------------------
     //
@@ -45,6 +35,16 @@ class MainViewController: UINavigationController, UINavigationControllerDelegate
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool)
+    {
+        super.setViewControllers(viewControllers, animated: animated)
+        
+        for viewController in self.viewControllers
+        {
+            self.setViewModelFor(viewController: viewController)
+        }
     }
     
     //--------------------------------------------------------------------------

@@ -66,6 +66,88 @@ class Wheres : NSObject, CLLocationManagerDelegate
     //
     //--------------------------------------------------------------------------
     
+    //------------------------------------
+    //  Methods: Users
+    //------------------------------------
+    
+    func requestUsers(with block: @escaping ([User]) -> Void)
+    {
+        let users = database.child("users")
+        
+        var handle:UInt?
+        
+        handle = users.observe(.value, with: { (snapshot:FIRDataSnapshot) -> Void in
+            
+            var newItems: [User] = []
+            
+            for child in snapshot.children
+            {
+                newItems.append(User(snapshot: child as! FIRDataSnapshot))
+            }
+
+            block(newItems)
+            
+            users.removeObserver(withHandle: handle!)
+        })
+    }
+    
+    //------------------------------------
+    //  Methods: Monitor changes
+    //------------------------------------
+    
+    func monitorRange()
+    {
+        
+    }
+    
+    private var _monitorUserAddedHandle: UInt?
+    
+    func startMonitorUserAdded(with block: @escaping (User) -> Void)
+    {
+        let users = database.child("users")
+        
+        _monitorUserAddedHandle = users.observe(.childAdded, with: { (snapshot:FIRDataSnapshot) -> Void in
+            
+            block(User(snapshot: snapshot))
+        })
+    }
+    
+    func stopMonitorUserAdded()
+    {
+        let users = database.child("users")
+
+        if let handle = _monitorUserAddedHandle
+        {
+            users.removeObserver(withHandle: handle)
+        }
+    }
+    
+    private var _monitorUserRemovedHandle: UInt?
+    
+    func startMonitorUserRemoved(with block: @escaping (String) -> Void)
+    {
+        let users = database.child("users")
+        
+        _monitorUserAddedHandle = users.observe(.childRemoved, with: { (snapshot:FIRDataSnapshot) -> Void in
+            
+            block(snapshot.key)
+        })
+    }
+    
+    func stopMonitorUserRemoved()
+    {
+        let users = database.child("users")
+        
+        if let handle = _monitorUserAddedHandle
+        {
+            users.removeObserver(withHandle: handle)
+        }
+    }
+    
+    //------------------------------------
+    //  Methods: Private
+    //------------------------------------
+    
     private func startTrackLocation()
     {
         if !isLocationTracking
@@ -98,7 +180,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     //--------------------------------------------------------------------------
     //
-    //  MARK: Deelegates
+    //  MARK: Delegates
     //
     //--------------------------------------------------------------------------
     

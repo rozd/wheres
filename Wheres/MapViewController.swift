@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController
+class MapViewController: UIViewController, MapViewModelDelegate, UITableViewDataSource
 {
     //-------------------------------------------------------------------------
     //
@@ -32,24 +32,62 @@ class MapViewController: UIViewController
     {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.viewModel.delegate = self
+        
+        self.usersTableView.dataSource = self
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: Delegates
+    //
+    //-------------------------------------------------------------------------
+    
+    //-------------------------------------
+    //  MapViewModelDelegate
+    //-------------------------------------
+    
+    func mapViewModelDidUserAdded(user: User)
+    {
+        let row = self.viewModel.users.count - 1
+        let indexPath = IndexPath(row: row, section: 0)
+        
+        self.usersTableView.insertRows(at: [indexPath], with: .top)
     }
-    */
-
+    
+    func mapViewModelDidUserRemoved(user: User, fromIndex index: Int)
+    {
+        let indexPath = IndexPath(row: index, section: 0)
+        
+        self.usersTableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    func mapViewModelDidUsersChange(users:[User])
+    {
+        self.usersTableView.reloadData()
+    }
+    
+    //-------------------------------------
+    //  UITableViewDataSource
+    //-------------------------------------
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return self.viewModel.users.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let user = self.viewModel.users[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendViewCell") as! FriendViewCell
+        cell.displayNameLabel.text = user.displayName
+        
+        return cell
+    }
 }
