@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController
 {
@@ -15,6 +16,9 @@ class MapViewController: UIViewController
     //  MARK: - Properties
     //
     //-------------------------------------------------------------------------
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var usersTableView: UITableView!
     
     var viewModel:MapViewModel!
     

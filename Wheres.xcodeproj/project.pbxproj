@@ -24,6 +24,7 @@
 		50B7346C1DEF6A4500AA77CB /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346B1DEF6A4500AA77CB /* MainViewModel.swift */; };
 		50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */; };
 		50B734711DF0663600AA77CB /* UIImageRoutines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734701DF0663600AA77CB /* UIImageRoutines.swift */; };
+		50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734741DF0C67800AA77CB /* FriendViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		50B734701DF0663600AA77CB /* UIImageRoutines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageRoutines.swift; sourceTree = "<group>"; };
 		50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wheres-Bridging-Header.h"; sourceTree = "<group>"; };
+		50B734741DF0C67800AA77CB /* FriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewCell.swift; sourceTree = "<group>"; };
 		CB43BC911AE36DE642BDFFE1 /* Pods-Wheres.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.debug.xcconfig"; sourceTree = "<group>"; };
 		FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wheres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				50B734641DEF593E00AA77CB /* Models */,
 				50B734631DEF592F00AA77CB /* ViewModels */,
 				50B734591DEF437E00AA77CB /* ViewControllers */,
+				50B734731DF0C64600AA77CB /* Views */,
 				50B734581DEF42A400AA77CB /* Wheres.entitlements */,
 				50B734441DEF27FE00AA77CB /* AppDelegate.swift */,
 				50B734461DEF27FE00AA77CB /* MainViewController.swift */,
@@ -147,6 +150,14 @@
 				50B734701DF0663600AA77CB /* UIImageRoutines.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		50B734731DF0C64600AA77CB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				50B734741DF0C67800AA77CB /* FriendViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		E61535793EBC0E6AE67A29AD /* Frameworks */ = {
@@ -302,6 +313,7 @@
 				50B734681DEF5E5A00AA77CB /* Wheres.swift in Sources */,
 				50B7345E1DEF46B900AA77CB /* MapViewController.swift in Sources */,
 				50B734601DEF501400AA77CB /* SignUpViewController.swift in Sources */,
+				50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

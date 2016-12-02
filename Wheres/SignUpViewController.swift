@@ -21,7 +21,7 @@ class SignUpViewController: UIViewController
     @IBOutlet weak var emailTextInput: UITextField!
     @IBOutlet weak var passwordTextInput: UITextField!
     
-    weak var viewModel:AuthViewModel! // TODO: weak?
+    var viewModel:AuthViewModel!
     
     //-------------------------------------------------------------------------
     //
@@ -62,21 +62,7 @@ class SignUpViewController: UIViewController
     {
         if let email = self.emailTextInput.text, let password = self.passwordTextInput.text
         {
-            FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
-                
-                if user != nil
-                {
-//                    self.currentUser = user
-                }
-                else if let errorMessage = error?.localizedDescription
-                {
-                    self.showMessage(message: errorMessage, withTitle: "Error")
-                }
-                else
-                {
-                    self.showMessage(message: "Could not create an account due to unknown error.", withTitle: "Error")
-                }
-            })
+            self.viewModel.signUp(withEmail: email, password: password, displayName: fullNameTextInput.text)
         }
     }
 }

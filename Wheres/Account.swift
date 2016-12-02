@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseDatabase
 
 extension Notification.Name
 {
@@ -29,7 +30,7 @@ class Account : NSObject
     {
         super.init()
         
-        _stateChangeHandler = FIRAuth.auth()?.addStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
+        _stateChangeHandler = auth?.addStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
             
             self.currentUser = user
         })
@@ -39,7 +40,7 @@ class Account : NSObject
     {
         if _stateChangeHandler != nil
         {
-            FIRAuth.auth()?.removeStateDidChangeListener(_stateChangeHandler!);
+            auth?.removeStateDidChangeListener(_stateChangeHandler!);
         }
     }
     
@@ -49,7 +50,11 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
     
-    private lazy var storageRef = FIRStorage.storage().reference(forURL: WheresFirebaseStorageURL)
+    private var auth = FIRAuth.auth()
+    
+    private lazy var storage = FIRStorage.storage().reference(forURL: WheresFirebaseStorageURL)
+    
+    private lazy var database = FIRDatabase.database().reference()
     
     private var _stateChangeHandler:FIRAuthStateDidChangeListenerHandle?
 
@@ -84,9 +89,9 @@ class Account : NSObject
     //  Methods: Authentication
     //-------------------------------------
     
-    func signIn(withEmail email:String, password:String)
+    func signIn(withEmail email: String, password: String)
     {
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
+        auth?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
             
             if user != nil
             {
@@ -103,13 +108,18 @@ class Account : NSObject
         })
     }
     
-    func signUp(_ email:String, password:String)
+    func signUp(_ email:String, password:String, displayName: String?)
     {
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
+        auth?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
             
             if user != nil
             {
                 self.currentUser = user
+                
+                if let displayName = displayName
+                {
+                    self.updateProfileWith(newDisplayName: displayName)
+                }
             }
             else if let errorMessage = error?.localizedDescription
             {
@@ -117,7 +127,7 @@ class Account : NSObject
             }
             else
             {
-                self.showMessage(message: "Could not create an account due to unknown error.", withTitle: "Error")
+                self.showMessage(message: "Could not to create an account due to unknown error.", withTitle: "Error")
             }
         })
     }
@@ -126,7 +136,7 @@ class Account : NSObject
     {
         do
         {
-            try FIRAuth.auth()?.signOut()
+            try auth?.signOut()
         }
         catch let error as NSError
         {
@@ -140,7 +150,7 @@ class Account : NSObject
 
     func changeAvatar(newAvatar image: UIImage)
     {
-        guard let currentUser = FIRAuth.auth()?.currentUser else {
+        guard let currentUser = auth?.currentUser else {
             return
         }
         
@@ -148,7 +158,7 @@ class Account : NSObject
             return
         }
         
-        let avatarRef = storageRef.child("users/\(currentUser.uid)/public-data/avatar/middle")
+        let avatarRef = storage.child("users/\(currentUser.uid)/public-data/avatar/middle")
         
         let inputMetadata = FIRStorageMetadata()
         inputMetadata.contentType = "image/png"
@@ -159,7 +169,7 @@ class Account : NSObject
             
             if error == nil
             {
-                if let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                if let changeRequest = self.auth?.currentUser?.profileChangeRequest()
                 {
                     changeRequest.photoURL = outputMetadata?.downloadURL()
                     
@@ -193,7 +203,27 @@ class Account : NSObject
                 self.currentUser?.didChangeValue(forKey: "profileURL")
             }
         }
+    }
     
+    func updateProfileWith(newDisplayName displayName: String)
+    {
+        guard let currentUser = auth?.currentUser else {
+            return
+        }
+
+        let changeRequest = currentUser.profileChangeRequest()
+        
+        changeRequest.displayName = displayName
+        
+        changeRequest.commitChanges { (error: Error?) in
+            
+            if error != nil
+            {
+                self.showMessage(message: error!.localizedDescription, withTitle: "Error")
+            }
+        }
+        
+        database.child("users/\(currentUser.uid)/displayName").setValue(displayName)
     }
     
     //-------------------------------------

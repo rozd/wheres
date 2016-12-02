@@ -49,9 +49,9 @@ class AuthViewModel : NSObject
         account.signIn(withEmail: email, password: password)
     }
     
-    func signUp(withEmail email: String, password: String)
+    func signUp(withEmail email: String, password: String, displayName: String?)
     {
-        account.signUp(email, password: password)
+        account.signUp(email, password: password, displayName: displayName)
     }
     
     func signOut()

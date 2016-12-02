@@ -44,9 +44,11 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     let account = Account()
     
-    lazy var geoFire: GeoFire = GeoFire(firebaseRef: FIRDatabase.database().reference())
+    lazy var database = FIRDatabase.database().reference()
     
-    private lazy var manager: CLLocationManager =
+    lazy var geoFire: GeoFire = GeoFire(firebaseRef: FIRDatabase.database().reference().child("locations"))
+    
+    private lazy var locationManager: CLLocationManager =
     {
         let _manager = CLLocationManager()
         _manager.delegate = self
@@ -71,10 +73,10 @@ class Wheres : NSObject, CLLocationManagerDelegate
             switch CLLocationManager.authorizationStatus()
             {
             case .notDetermined :
-                manager.requestAlwaysAuthorization()
+                locationManager.requestAlwaysAuthorization()
                 
             case .authorizedAlways, .authorizedWhenInUse :
-                manager.startUpdatingLocation()
+                locationManager.startUpdatingLocation()
                 
             default:
                 print("Not allowed")
@@ -90,7 +92,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
                 return
             }
             
-            manager.stopUpdatingLocation()            
+            locationManager.stopUpdatingLocation()            
         }
     }
     
@@ -132,6 +134,8 @@ class Wheres : NSObject, CLLocationManagerDelegate
         }
         
         geoFire.setLocation(mostRecentLocation, forKey: currentUser.uid)
+        
+        database.child("users/\(currentUser.uid)/location").setValue(["lat" : mostRecentLocation.coordinate.latitude, "lon" : mostRecentLocation.coordinate.longitude])
     }
     
     //--------------------------------------------------------------------------
