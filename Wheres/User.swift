@@ -44,9 +44,9 @@ class User
     
     let uid: String
     
-    let displayName: String?
+    var displayName: String?
     
-    let location: CLLocation?
+    var location: CLLocation?
     
     //--------------------------------------------------------------------------
     //

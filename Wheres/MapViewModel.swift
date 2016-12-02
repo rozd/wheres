@@ -7,13 +7,18 @@
 //
 
 import Foundation
+import MapKit
 import FirebaseDatabase
+import GeoFire
 
 protocol MapViewModelDelegate : class
 {
     func mapViewModelDidUserAdded(user: User)
     func mapViewModelDidUserRemoved(user: User, fromIndex index: Int)
     func mapViewModelDidUsersChange(users:[User])
+    
+    func mapViewModelDidUserAnnotationAdded(annotation: UserAnnotation)
+    func mapViewModelDidUserAnnotationRemoved(annotation: UserAnnotation)
 }
 
 class MapViewModel
@@ -27,17 +32,12 @@ class MapViewModel
     init(wheres:Wheres)
     {
         self.wheres = wheres;
-        
-        self.wheres.requestUsers(with: handleUsersChange)
-        
-        self.wheres.startMonitorUserAdded(with: handleUserAdded)
-        self.wheres.startMonitorUserRemoved(with: handleUserRemoved)
     }
     
     deinit
     {
-        self.wheres.stopMonitorUserAdded()
-        self.wheres.stopMonitorUserRemoved()
+        stopMonitorUsers()
+        stopMonitorLocations()
     }
     
     //-------------------------------------------------------------------------
@@ -54,11 +54,19 @@ class MapViewModel
 
     var users: [User] = []
     
+    private var usersMap: [String : User] = [:]
+    
+    private var annotationsMap: [String : UserAnnotation] = [:]
+    
     //------------------------------------
     //  delegate
     //------------------------------------
     
     weak var delegate: MapViewModelDelegate?
+    
+    private var usersQuery: FIRDatabaseReference?
+    
+    private var regionQuery: GFRegionQuery?
     
     //-------------------------------------------------------------------------
     //
@@ -66,32 +74,144 @@ class MapViewModel
     //
     //-------------------------------------------------------------------------
     
-    private func handleUsersChange(users:[User])
-    {
-        self.users = users
-        
-        delegate?.mapViewModelDidUsersChange(users: self.users)
-    }
+    //-------------------------------------
+    //  Methods: Monitor user changes
+    //-------------------------------------
     
-    private func handleUserAdded(user:User)
+    func monitorUsers()
     {
-        self.users.append(user)
+        self.usersQuery = self.wheres.database.child("users")
         
-        delegate?.mapViewModelDidUserAdded(user: user)
-    }
-    
-    private func handleUserRemoved(uid: String)
-    {
-        for (index, user) in self.users.enumerated()
-        {
-            if user.uid == uid
+        var usersChangeHandle: UInt?
+        
+        usersChangeHandle = self.usersQuery?.observe(.value, with: { (snapshot:FIRDataSnapshot) -> Void in
+            
+            if let handle = usersChangeHandle
             {
-                self.users.remove(at: index)
+                // remove observer for change users, we don't need it anymore
                 
-                delegate?.mapViewModelDidUserRemoved(user: user, fromIndex: index)
-                
-                return
+                self.usersQuery?.removeObserver(withHandle: handle)
             }
+            
+            self.users = []
+            self.usersMap = [:]
+            
+            for child in snapshot.children
+            {
+                let user = User(snapshot: child as! FIRDataSnapshot)
+                
+                self.users.append(user)
+                self.usersMap[user.uid] = user
+            }
+
+            self.delegate?.mapViewModelDidUsersChange(users: self.users)
+        })
+        
+        self.usersQuery?.observe(.childAdded, with: { (snapshot: FIRDataSnapshot) in
+            
+            let user = User(snapshot: snapshot)
+            
+            self.users.append(user)
+            
+            self.delegate?.mapViewModelDidUserAdded(user: user)
+        })
+        
+        self.usersQuery?.observe(.childRemoved, with: { (snapshot: FIRDataSnapshot) in
+            
+            for (index, user) in self.users.enumerated()
+            {
+                if user.uid == snapshot.key
+                {
+                    self.users.remove(at: index)
+                    
+                    self.delegate?.mapViewModelDidUserRemoved(user: user, fromIndex: index)
+                    
+                    break
+                }
+            }
+        })
+    }
+    
+    func stopMonitorUsers()
+    {
+        self.usersQuery?.removeAllObservers()
+        self.usersQuery = nil
+    }
+    
+    //-------------------------------------
+    //  Methods: Monitor location changes
+    //-------------------------------------
+    
+    func monitorLocations(within region: MKCoordinateRegion)
+    {
+        if let query = self.regionQuery
+        {
+            query.region = region
+        }
+        else
+        {
+            self.regionQuery = self.wheres.geoFire.query(with: region)
+            
+            self.regionQuery?.observe(.keyMoved, with: { (key: String?, location: CLLocation?) in
+                
+                if let key = key, let annotation = self.annotationsMap[key], let location = location
+                {
+//                    if let user = self.usersMap[key]
+//                    {
+//                        user.location = location
+//                    }
+                    
+                    annotation.coordinate = location.coordinate
+                }
+            })
+            
+            self.regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
+                
+                if let key = key, let location = location
+                {
+                    if let user = self.usersMap[key]
+                    {
+                        user.location = location
+                        
+                        let annotation = UserAnnotation(user: user)
+                        
+                        self.annotationsMap[key] = annotation
+                        
+                        self.delegate?.mapViewModelDidUserAnnotationAdded(annotation: annotation)
+                    }
+                }
+            })
+            
+            self.regionQuery?.observe(.keyExited, with: { (key: String?, location:CLLocation?) in
+                
+                if let key = key, let location = location
+                {
+                    if let user = self.usersMap[key]
+                    {
+                        user.location = location
+                    }
+                    
+                    if let annotation = self.annotationsMap[key]
+                    {
+                        self.annotationsMap.removeValue(forKey: key)
+                        
+                        self.delegate?.mapViewModelDidUserAnnotationRemoved(annotation: annotation)
+                    }
+                }
+            })
         }
     }
+    
+    func stopMonitorLocations()
+    {
+        self.regionQuery?.removeAllObservers()
+        self.regionQuery = nil
+    }
+    
+    //-------------------------------------------------------------------------
+    //
+    //  MARK: Methods
+    //
+    //-------------------------------------------------------------------------
+    
 }

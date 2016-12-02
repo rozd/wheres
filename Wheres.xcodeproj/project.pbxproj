@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		08F23EC08562767268A03731 /* Pods_Wheres.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */; };
 		5094A6B81DF1E5D7007E2875 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5094A6B71DF1E5D7007E2875 /* User.swift */; };
+		5094A6BC1DF1FE1B007E2875 /* UserAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5094A6BB1DF1FE1B007E2875 /* UserAnnotation.swift */; };
 		50B734451DEF27FE00AA77CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734441DEF27FE00AA77CB /* AppDelegate.swift */; };
 		50B734471DEF27FE00AA77CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734461DEF27FE00AA77CB /* MainViewController.swift */; };
 		50B7344A1DEF280000AA77CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50B734481DEF280000AA77CB /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		341F0BBD4EF97A09C0C43E23 /* Pods-Wheres.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.release.xcconfig"; sourceTree = "<group>"; };
 		5094A6B71DF1E5D7007E2875 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5094A6BB1DF1FE1B007E2875 /* UserAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAnnotation.swift; sourceTree = "<group>"; };
 		50B734411DEF27FD00AA77CB /* Wheres.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheres.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50B734441DEF27FE00AA77CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50B734461DEF27FE00AA77CB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				50B734671DEF5E5A00AA77CB /* Wheres.swift */,
 				50B734691DEF606700AA77CB /* Account.swift */,
 				5094A6B71DF1E5D7007E2875 /* User.swift */,
+				5094A6BB1DF1FE1B007E2875 /* UserAnnotation.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				50B7346A1DEF606700AA77CB /* Account.swift in Sources */,
 				50B734681DEF5E5A00AA77CB /* Wheres.swift in Sources */,
 				50B7345E1DEF46B900AA77CB /* MapViewController.swift in Sources */,
+				5094A6BC1DF1FE1B007E2875 /* UserAnnotation.swift in Sources */,
 				50B734601DEF501400AA77CB /* SignUpViewController.swift in Sources */,
 				50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */,
 			);
@@ -361,6 +365,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -411,6 +416,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

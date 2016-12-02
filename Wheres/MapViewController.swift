@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController, MapViewModelDelegate, UITableViewDataSource
+class MapViewController: UIViewController, MapViewModelDelegate, UITableViewDataSource, MKMapViewDelegate
 {
     //-------------------------------------------------------------------------
     //
@@ -33,8 +33,11 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         super.viewDidLoad()
 
         self.viewModel.delegate = self
+        self.viewModel.monitorUsers()
+        self.viewModel.monitorLocations(within: self.mapView.region)
         
         self.usersTableView.dataSource = self
+        self.mapView.delegate = self
     }
 
     override func didReceiveMemoryWarning()
@@ -89,5 +92,38 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         cell.displayNameLabel.text = user.displayName
         
         return cell
+    }
+    
+    //-------------------------------------
+    //  MKMapViewDelegate
+    //-------------------------------------
+    
+    public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool)
+    {
+        self.viewModel.monitorLocations(within: self.mapView.region)
+    }
+    
+    public func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
+    {
+        if annotation is MKUserLocation
+        {
+            return nil // use default view
+        }
+        else if annotation is UserAnnotation
+        {
+            
+        }
+        
+        return nil
+    }
+    
+    func mapViewModelDidUserAnnotationAdded(annotation: UserAnnotation)
+    {
+        self.mapView.addAnnotation(annotation)
+    }
+    
+    func mapViewModelDidUserAnnotationRemoved(annotation: UserAnnotation)
+    {
+        self.mapView.removeAnnotation(annotation)
     }
 }
