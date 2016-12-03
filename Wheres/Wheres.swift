@@ -15,6 +15,12 @@ import FirebaseDatabase
 
 let WheresFirebaseStorageURL = "gs://whres-d5103.appspot.com"
 
+let WheresAvatarMiddleSize = 256
+let WheresAvatarSmallSize = 96
+let WheresAvatarExtraSmallSize = 64
+
+let WheresFriendAnnotationViewSize = 32
+
 class Wheres : NSObject, CLLocationManagerDelegate
 {
     //--------------------------------------------------------------------------

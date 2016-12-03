@@ -29,7 +29,6 @@
 		50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734741DF0C67800AA77CB /* FriendViewCell.swift */; };
 		50D6E1421DF2C2FB0004C062 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1411DF2C2FB0004C062 /* AccountService.swift */; };
 		50D6E1441DF2D5380004C062 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1431DF2D5380004C062 /* FriendAnnotationView.swift */; };
-		50D6E1471DF2DC5A0004C062 /* MKAnnotationView+AlamofireImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1461DF2DC5A0004C062 /* MKAnnotationView+AlamofireImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,7 +58,6 @@
 		50B734741DF0C67800AA77CB /* FriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewCell.swift; sourceTree = "<group>"; };
 		50D6E1411DF2C2FB0004C062 /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		50D6E1431DF2D5380004C062 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
-		50D6E1461DF2DC5A0004C062 /* MKAnnotationView+AlamofireImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MKAnnotationView+AlamofireImage.swift"; sourceTree = "<group>"; };
 		CB43BC911AE36DE642BDFFE1 /* Pods-Wheres.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.debug.xcconfig"; sourceTree = "<group>"; };
 		FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wheres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -186,7 +184,6 @@
 		50D6E1481DF2E3B20004C062 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				50D6E1461DF2DC5A0004C062 /* MKAnnotationView+AlamofireImage.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -342,7 +339,6 @@
 				5094A6B81DF1E5D7007E2875 /* User.swift in Sources */,
 				50B7346C1DEF6A4500AA77CB /* MainViewModel.swift in Sources */,
 				50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */,
-				50D6E1471DF2DC5A0004C062 /* MKAnnotationView+AlamofireImage.swift in Sources */,
 				50B7346A1DEF606700AA77CB /* Account.swift in Sources */,
 				50B734681DEF5E5A00AA77CB /* Wheres.swift in Sources */,
 				50B7345E1DEF46B900AA77CB /* MapViewController.swift in Sources */,

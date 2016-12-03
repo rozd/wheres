@@ -165,15 +165,15 @@ class Account : NSObject
             return
         }
         
-        guard let middleAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 256, height: 256)) else {
+        guard let middleAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: WheresAvatarMiddleSize, height: WheresAvatarMiddleSize)) else {
             return
         }
         
-        guard let smallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 96, height: 96)) else {
+        guard let smallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: WheresAvatarSmallSize, height: WheresAvatarSmallSize)) else {
             return
         }
         
-        guard let extraSmallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 32, height: 32)) else {
+        guard let extraSmallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: WheresAvatarExtraSmallSize, height: WheresAvatarExtraSmallSize)) else {
             return
         }
         
