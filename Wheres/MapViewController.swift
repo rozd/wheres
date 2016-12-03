@@ -117,13 +117,9 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendViewCell") as! FriendViewCell
         cell.displayNameLabel.text = user.displayName
         
-        if let avatarURL = user.avatarMiddleURL
+        if let avatarURL = user.smallAvatarURL
         {
             cell.avatarImageView.af_setImage(withURL: avatarURL)
-        }
-        else
-        {
-            cell.avatarImageView.image = #imageLiteral(resourceName: "Anonymous")
         }
         
         if let friendLocation = user.location, let myLocation = self.mapView.userLocation.location

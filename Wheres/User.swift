@@ -37,13 +37,19 @@ class User : Equatable
         
         self.displayName = value?["displayName"] as? String
         
-        if let avatarMiddlePath = value?["avatarMiddlePath"] as? String
+        if let middleAvatarPath = value?["middleAvatarPath"] as? String
         {
-            self.avatarMiddleURL = URL(string: avatarMiddlePath)
+            self.middleAvatarURL = URL(string: middleAvatarPath)
         }
-        else
+        
+        if let smallAvatarPath = value?["smallAvatarPath"] as? String
         {
-            self.avatarMiddleURL = nil
+            self.smallAvatarURL = URL(string: smallAvatarPath)
+        }
+        
+        if let extraSmallAvatarPath = value?["extraSmallAvatarPath"] as? String
+        {
+            self.extraSmallAvatarURL = URL(string: extraSmallAvatarPath)
         }
         
         if let lat = value?["location"]?["lat"] as? NSNumber, let lon = value?["location"]?["lon"] as? NSNumber
@@ -66,7 +72,9 @@ class User : Equatable
     
     let displayName: String?
     
-    let avatarMiddleURL: URL?
+    var middleAvatarURL: URL?
+    var smallAvatarURL: URL?
+    var extraSmallAvatarURL: URL?
     
     var location: CLLocation?
     

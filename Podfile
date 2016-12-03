@@ -14,6 +14,8 @@ target 'Wheres' do
 
   pod 'AlamofireImage', '~> 3.1'
 
+  pod 'IGIdenticon', '0.4'
+
 end
 
 post_install do |installer|

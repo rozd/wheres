@@ -49,6 +49,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
+  - IGIdenticon (0.4)
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.1)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
+  - IGIdenticon (= 0.4)
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -82,7 +84,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
+  IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
 
-PODFILE CHECKSUM: 32b6f5d9e523a20926e411799eba370e4b87c1d1
+PODFILE CHECKSUM: da53a171bf3f8cd871620d6e72cee091b2f1eb35
 
 COCOAPODS: 1.1.1

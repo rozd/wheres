@@ -27,6 +27,7 @@
 		50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */; };
 		50B734711DF0663600AA77CB /* UIImageRoutines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734701DF0663600AA77CB /* UIImageRoutines.swift */; };
 		50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734741DF0C67800AA77CB /* FriendViewCell.swift */; };
+		50D6E1421DF2C2FB0004C062 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1411DF2C2FB0004C062 /* AccountService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		50B734701DF0663600AA77CB /* UIImageRoutines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageRoutines.swift; sourceTree = "<group>"; };
 		50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wheres-Bridging-Header.h"; sourceTree = "<group>"; };
 		50B734741DF0C67800AA77CB /* FriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewCell.swift; sourceTree = "<group>"; };
+		50D6E1411DF2C2FB0004C062 /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		CB43BC911AE36DE642BDFFE1 /* Pods-Wheres.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheres.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wheres/Pods-Wheres.debug.xcconfig"; sourceTree = "<group>"; };
 		FED5830DDAB48CCE414F781E /* Pods_Wheres.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wheres.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -100,6 +102,7 @@
 		50B734431DEF27FD00AA77CB /* Wheres */ = {
 			isa = PBXGroup;
 			children = (
+				50D6E1401DF2C2E80004C062 /* Services */,
 				50B7346F1DF062FC00AA77CB /* Helpers */,
 				50B734641DEF593E00AA77CB /* Models */,
 				50B734631DEF592F00AA77CB /* ViewModels */,
@@ -164,6 +167,14 @@
 				50B734741DF0C67800AA77CB /* FriendViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		50D6E1401DF2C2E80004C062 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				50D6E1411DF2C2FB0004C062 /* AccountService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		E61535793EBC0E6AE67A29AD /* Frameworks */ = {
@@ -320,6 +331,7 @@
 				50B734681DEF5E5A00AA77CB /* Wheres.swift in Sources */,
 				50B7345E1DEF46B900AA77CB /* MapViewController.swift in Sources */,
 				5094A6BC1DF1FE1B007E2875 /* UserAnnotation.swift in Sources */,
+				50D6E1421DF2C2FB0004C062 /* AccountService.swift in Sources */,
 				50B734601DEF501400AA77CB /* SignUpViewController.swift in Sources */,
 				50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */,
 			);

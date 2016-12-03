@@ -11,6 +11,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
+import IGIdenticon
 
 extension Notification.Name
 {
@@ -55,6 +56,11 @@ class Account : NSObject
     private lazy var storage = FIRStorage.storage().reference(forURL: WheresFirebaseStorageURL)
     
     private lazy var database = FIRDatabase.database().reference()
+    
+    private lazy var service: AccountService = {
+
+        return AccountService(storage: self.storage, database: self.database)
+    }()
     
     private var _stateChangeHandler:FIRAuthStateDidChangeListenerHandle?
 
@@ -116,6 +122,11 @@ class Account : NSObject
             {
                 self.currentUser = user
                 
+                if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640))
+                {
+                    self.changeAvatar(newAvatar: tempAvatar)
+                }
+                
                 if let displayName = displayName
                 {
                     self.updateProfileWith(newDisplayName: displayName)
@@ -158,40 +169,17 @@ class Account : NSObject
             return
         }
         
-        let avatarRef = storage.child("users/\(currentUser.uid)/public-data/avatar/middle")
+        guard let smallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 96, height: 96)) else {
+            return
+        }
         
-        let inputMetadata = FIRStorageMetadata()
-        inputMetadata.contentType = "image/png"
+        guard let extraSmallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: 32, height: 32)) else {
+            return
+        }
         
-        let imageData = UIImagePNGRepresentation(middleAvatar)!
-        
-        let _ = avatarRef.put(imageData, metadata: inputMetadata) { (outputMetadata: FIRStorageMetadata?, error:Error?) in
+        self.service.update(avatar: middleAvatar, withName: "middle", forUser: currentUser) { (avatarURL:URL?, error:Error?) in
             
-            if error == nil
-            {
-                if let changeRequest = self.auth?.currentUser?.profileChangeRequest()
-                {
-                    changeRequest.photoURL = outputMetadata?.downloadURL()
-                    
-                    changeRequest.commitChanges(completion: { (error:Error?) in
-                        
-                        if error != nil
-                        {
-                            self.showMessage(message: error!.localizedDescription, withTitle: "Error")
-                            
-                            // Back to previos photo
-                            
-                            self.currentUser?.willChangeValue(forKey: "profileURL")
-                            self.currentUser?.didChangeValue(forKey: "profileURL")
-                        }
-                    })
-                    
-                    // save also in the Database
-                    
-                    self.database.child("users/\(currentUser.uid)/avatarMiddlePath").setValue(changeRequest.photoURL?.absoluteString)
-                }
-            }
-            else
+            if error != nil
             {
                 self.showMessage(message: error!.localizedDescription, withTitle: "Error")
                 
@@ -201,6 +189,9 @@ class Account : NSObject
                 self.currentUser?.didChangeValue(forKey: "profileURL")
             }
         }
+        
+        self.service.update(avatar: smallAvatar, withName: "small", forUser: currentUser)
+        self.service.update(avatar: extraSmallAvatar, withName: "extraSmall", forUser: currentUser)
     }
     
     func updateProfileWith(newDisplayName displayName: String)
@@ -209,19 +200,18 @@ class Account : NSObject
             return
         }
 
-        let changeRequest = currentUser.profileChangeRequest()
-        
-        changeRequest.displayName = displayName
-        
-        changeRequest.commitChanges { (error: Error?) in
+        self.service.update(displayName: displayName, forUser: currentUser) { (error:Error?) -> Void in
             
             if error != nil
             {
                 self.showMessage(message: error!.localizedDescription, withTitle: "Error")
+                
+                // Back to previos displayName
+                
+                self.currentUser?.willChangeValue(forKey: "displayName")
+                self.currentUser?.didChangeValue(forKey: "displayName")
             }
         }
-        
-        database.child("users/\(currentUser.uid)/displayName").setValue(displayName)
     }
     
     //-------------------------------------

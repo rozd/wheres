@@ -118,6 +118,10 @@ class MapViewModel
         
         self.usersQuery?.observe(.childAdded, with: { (snapshot: FIRDataSnapshot) in
             
+            guard snapshot.key != self.account.currentUser?.uid else {
+                return
+            }
+            
             let user = User(snapshot: snapshot)
             
             self.users.append(user)
