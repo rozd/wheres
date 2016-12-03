@@ -49,6 +49,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         self.isSignedOut = false
         
+        let borderLayer = CALayer();
+        borderLayer.frame = CGRect(x: 0.0, y: 0.0, width: self.avatarImageView.bounds.width, height: self.avatarImageView.bounds.height)
+        borderLayer.cornerRadius = CGFloat(self.avatarImageView.bounds.width / 2.0);
+        borderLayer.borderWidth = 4.0;
+        borderLayer.borderColor = UIColor.redCadmium.cgColor
+        
+        self.avatarImageView.layer.addSublayer(borderLayer);
+        
         let tapGestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(avatarImageViewTapped(_:)))
         self.avatarImageView.isUserInteractionEnabled = true
         self.avatarImageView.addGestureRecognizer(tapGestureRecogniser)

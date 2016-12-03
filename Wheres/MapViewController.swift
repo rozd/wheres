@@ -39,6 +39,7 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         
         self.usersTableView.delegate = self
         self.usersTableView.dataSource = self
+        self.usersTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
         self.mapView.delegate = self
     }
@@ -140,7 +141,7 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
     }
     
     //-------------------------------------
-    //  MARK: UITableViewDataSource
+    //  MARK: UITableViewDelegate
     //-------------------------------------
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -151,7 +152,16 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         {
             self.mapView.setCenter(location.coordinate, animated: true)
         }
-        
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 64.0;
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 64.0
     }
     
     //-------------------------------------

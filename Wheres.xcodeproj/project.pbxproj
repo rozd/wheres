@@ -27,6 +27,7 @@
 		50B7346E1DEF6ADA00AA77CB /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7346D1DEF6ADA00AA77CB /* MapViewModel.swift */; };
 		50B734711DF0663600AA77CB /* UIImageRoutines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734701DF0663600AA77CB /* UIImageRoutines.swift */; };
 		50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B734741DF0C67800AA77CB /* FriendViewCell.swift */; };
+		50D409B01DF35CE5009CF061 /* UIColor+Scheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D409AF1DF35CE5009CF061 /* UIColor+Scheme.swift */; };
 		50D6E1421DF2C2FB0004C062 /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1411DF2C2FB0004C062 /* AccountService.swift */; };
 		50D6E1441DF2D5380004C062 /* FriendAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1431DF2D5380004C062 /* FriendAnnotationView.swift */; };
 		50D6E14A1DF32D6B0004C062 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D6E1491DF32D6B0004C062 /* InitialViewController.swift */; };
@@ -57,6 +58,7 @@
 		50B734701DF0663600AA77CB /* UIImageRoutines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageRoutines.swift; sourceTree = "<group>"; };
 		50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wheres-Bridging-Header.h"; sourceTree = "<group>"; };
 		50B734741DF0C67800AA77CB /* FriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewCell.swift; sourceTree = "<group>"; };
+		50D409AF1DF35CE5009CF061 /* UIColor+Scheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Scheme.swift"; sourceTree = "<group>"; };
 		50D6E1411DF2C2FB0004C062 /* AccountService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		50D6E1431DF2D5380004C062 /* FriendAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendAnnotationView.swift; sourceTree = "<group>"; };
 		50D6E1491DF32D6B0004C062 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 		50D6E1481DF2E3B20004C062 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				50D409AF1DF35CE5009CF061 /* UIColor+Scheme.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				50B734681DEF5E5A00AA77CB /* Wheres.swift in Sources */,
 				50B7345E1DEF46B900AA77CB /* MapViewController.swift in Sources */,
 				5094A6BC1DF1FE1B007E2875 /* UserAnnotation.swift in Sources */,
+				50D409B01DF35CE5009CF061 /* UIColor+Scheme.swift in Sources */,
 				50D6E1421DF2C2FB0004C062 /* AccountService.swift in Sources */,
 				50B734601DEF501400AA77CB /* SignUpViewController.swift in Sources */,
 				50B734751DF0C67800AA77CB /* FriendViewCell.swift in Sources */,

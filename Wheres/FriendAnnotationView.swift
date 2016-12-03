@@ -84,7 +84,7 @@ class FriendAnnotationView: MKAnnotationView
         borderLayer.frame = CGRect(x: 0, y: 0, width: size, height: size);
         borderLayer.cornerRadius = CGFloat(size / 2);
         borderLayer.borderWidth = 2.0;
-        borderLayer.borderColor = UIColor.cyan.cgColor;
+        borderLayer.borderColor = UIColor.redCadmium.cgColor;
         
         self.layer.addSublayer(borderLayer);
         
