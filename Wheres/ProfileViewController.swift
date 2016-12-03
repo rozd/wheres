@@ -34,6 +34,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var usernameLabel: UILabel!
     
     var viewModel: AuthViewModel!
+    
+    private var isSignedOut: Bool = false
 
     //--------------------------------------------------------------------------
     //
@@ -44,6 +46,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        self.isSignedOut = false
         
         let tapGestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(avatarImageViewTapped(_:)))
         self.avatarImageView.isUserInteractionEnabled = true
@@ -74,6 +78,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func refreshAvatar()
     {
+        guard !isSignedOut else {
+            return
+        }
+        
         if let userPictureURL = self.viewModel.account.currentUser?.photoURL
         {
             DispatchQueue.global(qos: .background).async {
@@ -140,6 +148,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     @IBAction func signOutButtonTapped(_ sender: Any)
     {
+        isSignedOut = true
+        
         self.viewModel.signOut()
     }
     

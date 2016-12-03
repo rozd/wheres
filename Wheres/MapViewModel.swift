@@ -30,9 +30,10 @@ class MapViewModel
     //
     //-------------------------------------------------------------------------
     
-    init(wheres:Wheres)
+    init(wheres:Wheres, account: Account)
     {
-        self.wheres = wheres;
+        self.wheres = wheres
+        self.account = account
     }
     
     deinit
@@ -51,7 +52,8 @@ class MapViewModel
     //
     //------------------------------------
     
-    let wheres:Wheres;
+    let wheres: Wheres
+    let account: Account
 
     var users: [User] = []
     
@@ -100,6 +102,12 @@ class MapViewModel
             for child in snapshot.children
             {
                 let user = User(snapshot: child as! FIRDataSnapshot)
+                
+                if user.uid == self.account.currentUser?.uid
+                {
+                    // ignore self
+                    continue
+                }
                 
                 self.users.append(user)
                 self.usersMap[user.uid] = user

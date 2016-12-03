@@ -37,6 +37,15 @@ class User : Equatable
         
         self.displayName = value?["displayName"] as? String
         
+        if let avatarMiddlePath = value?["avatarMiddlePath"] as? String
+        {
+            self.avatarMiddleURL = URL(string: avatarMiddlePath)
+        }
+        else
+        {
+            self.avatarMiddleURL = nil
+        }
+        
         if let lat = value?["location"]?["lat"] as? NSNumber, let lon = value?["location"]?["lon"] as? NSNumber
         {
             self.location = CLLocation(latitude: lat.doubleValue, longitude: lon.doubleValue)
@@ -55,7 +64,9 @@ class User : Equatable
     
     let uid: String
     
-    var displayName: String?
+    let displayName: String?
+    
+    let avatarMiddleURL: URL?
     
     var location: CLLocation?
     

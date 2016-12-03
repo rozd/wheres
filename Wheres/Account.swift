@@ -184,13 +184,11 @@ class Account : NSObject
                             self.currentUser?.willChangeValue(forKey: "profileURL")
                             self.currentUser?.didChangeValue(forKey: "profileURL")
                         }
-                        
-                        // Back to previos photo
-                        
-                        self.willChangeValue(forKey: "currentUser")
-                        self.didChangeValue(forKey: "currentUser")
-
                     })
+                    
+                    // save also in the Database
+                    
+                    self.database.child("users/\(currentUser.uid)/avatarMiddlePath").setValue(changeRequest.photoURL?.absoluteString)
                 }
             }
             else

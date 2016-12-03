@@ -42,6 +42,6 @@ class MainViewModel
     
     func newMapViewModel() -> MapViewModel
     {
-        return MapViewModel(wheres: self.wheres)
+        return MapViewModel(wheres: self.wheres, account: self.wheres.account)
     }
 }

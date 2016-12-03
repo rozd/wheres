@@ -9,7 +9,10 @@ target 'Wheres' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
+
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+
+  pod 'AlamofireImage', '~> 3.1'
 
 end
 
