@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
         self.viewModel.delegate = self
         self.viewModel.monitorUsers()
         self.viewModel.monitorLocations(within: self.mapView.region)
@@ -42,7 +42,14 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         
         self.mapView.delegate = self
     }
-
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
