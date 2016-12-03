@@ -162,9 +162,24 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         {
             return nil // use default view
         }
-        else if annotation is UserAnnotation
+        else if let friendAnnotation = annotation as? UserAnnotation
         {
+            let reuseIdentifier = "FriendAnnotationView"
             
+            let friendAnnotationView =
+                self.mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? FriendAnnotationView ??
+                FriendAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+
+            if let avatarURL = friendAnnotation.user.extraSmallAvatarURL
+            {
+                friendAnnotationView.af_setImage(withURL: avatarURL)
+            }
+            else
+            {
+                friendAnnotationView.image = nil
+            }
+            
+            return friendAnnotationView
         }
         
         return nil
