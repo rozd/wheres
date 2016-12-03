@@ -29,7 +29,7 @@ class User : Equatable
     //
     //--------------------------------------------------------------------------
     
-    init(snapshot:FIRDataSnapshot)
+    init(snapshot: FIRDataSnapshot)
     {
         let value = snapshot.value as? [String : AnyObject]
         

@@ -57,8 +57,6 @@ class MapViewModel
 
     var users: [User] = []
     
-    private var usersMap: [String : User] = [:]
-    
     private var annotationsMap: [String : UserAnnotation] = [:]
     
     //------------------------------------
@@ -97,20 +95,18 @@ class MapViewModel
             }
             
             self.users = []
-            self.usersMap = [:]
             
             for child in snapshot.children
             {
-                let user = User(snapshot: child as! FIRDataSnapshot)
+                // ignore current user
                 
-                if user.uid == self.account.currentUser?.uid
-                {
-                    // ignore self
+                guard (child as! FIRDataSnapshot).key != self.account.currentUser?.uid else {
                     continue
                 }
                 
+                let user = User(snapshot: child as! FIRDataSnapshot)
+                
                 self.users.append(user)
-                self.usersMap[user.uid] = user
             }
 
             self.delegate?.mapViewModelDidUsersChange(users: self.users)
@@ -125,24 +121,33 @@ class MapViewModel
             let user = User(snapshot: snapshot)
             
             self.users.append(user)
-            self.usersMap[user.uid] = user
             
             self.delegate?.mapViewModelDidUserAdded(user: user)
         })
         
         self.usersQuery?.observe(.childRemoved, with: { (snapshot: FIRDataSnapshot) in
             
-            for (index, user) in self.users.enumerated()
+            if let found = self.findFriend(withUID: snapshot.key)
             {
-                if user.uid == snapshot.key
-                {
-                    self.users.remove(at: index)
-                    self.usersMap.removeValue(forKey: user.uid)
-                    
-                    self.delegate?.mapViewModelDidUserRemoved(user: user, atIndex: index)
-                    
-                    break
-                }
+                self.users.remove(at: found.index)
+                
+                self.delegate?.mapViewModelDidUserRemoved(user: found.friend, atIndex: found.index)
+            }
+        })
+        
+        self.usersQuery?.observe(.childChanged, with: { (snapshot: FIRDataSnapshot) in
+            
+            guard snapshot.key != self.account.currentUser?.uid else {
+                return
+            }
+            
+            if let found = self.findFriend(withUID: snapshot.key)
+            {
+                let newUser = User(snapshot: snapshot)
+                
+                self.users[found.index] = newUser
+                
+                self.delegate?.mapViewModelDidUserChanged(user: newUser, atIndex: found.index)
             }
         })
     }
@@ -169,15 +174,19 @@ class MapViewModel
             
             self.regionQuery?.observe(.keyMoved, with: { (key: String?, location: CLLocation?) in
                 
-                if let key = key, let annotation = self.annotationsMap[key], let location = location
+                guard let key = key, let annotation = self.annotationsMap[key] else {
+                    return
+                }
+                
+                if let found = self.findFriend(withUID: key)
                 {
-                    if let user = self.usersMap[key]
-                    {
-                        user.location = location
-                        
-                        self.delegate?.mapViewModelDidUserChanged(user: user, atIndex: self.users.index(of: user)!)
-                    }
-
+                    found.friend.location = location
+                    
+                    self.delegate?.mapViewModelDidUserChanged(user: found.friend, atIndex: found.index)
+                }
+                
+                if let location = location
+                {
                     UIView.animate(withDuration: 2.0, animations: {
                         
                         annotation.coordinate = location.coordinate
@@ -187,36 +196,37 @@ class MapViewModel
             
             self.regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
                 
-                if let key = key, let location = location
+                guard let key = key, let location = location else {
+                    return
+                }
+                
+                if let found = self.findFriend(withUID: key)
                 {
-                    if let user = self.usersMap[key]
-                    {
-                        user.location = location
-                        
-                        let annotation = UserAnnotation(user: user)
-                        
-                        self.annotationsMap[key] = annotation
-                        
-                        self.delegate?.mapViewModelDidUserAnnotationAdded(annotation: annotation)
-                    }
+                    found.friend.location = location
+                    
+                    let annotation = UserAnnotation(user: found.friend)
+                    self.annotationsMap[key] = annotation
+                    
+                    self.delegate?.mapViewModelDidUserAnnotationAdded(annotation: annotation)
                 }
             })
             
             self.regionQuery?.observe(.keyExited, with: { (key: String?, location:CLLocation?) in
                 
-                if let key = key, let location = location
+                guard let key = key, let location = location else {
+                    return
+                }
+                
+                if let found = self.findFriend(withUID: key)
                 {
-                    if let user = self.usersMap[key]
-                    {
-                        user.location = location
-                    }
+                    found.friend.location = location
+                }
+                
+                if let annotation = self.annotationsMap[key]
+                {
+                    self.annotationsMap.removeValue(forKey: key)
                     
-                    if let annotation = self.annotationsMap[key]
-                    {
-                        self.annotationsMap.removeValue(forKey: key)
-                        
-                        self.delegate?.mapViewModelDidUserAnnotationRemoved(annotation: annotation)
-                    }
+                    self.delegate?.mapViewModelDidUserAnnotationRemoved(annotation: annotation)
                 }
             })
         }
@@ -226,6 +236,23 @@ class MapViewModel
     {
         self.regionQuery?.removeAllObservers()
         self.regionQuery = nil
+    }
+    
+    //-------------------------------------
+    //  Methods: Internal helper methods
+    //-------------------------------------
+    
+    private func findFriend(withUID uid: String) -> (index: Int, friend: User)?
+    {
+        for (index, friend) in self.users.enumerated()
+        {
+            if friend.uid == uid
+            {
+                return (index, friend)
+            }
+        }
+        
+        return nil
     }
     
     //-------------------------------------------------------------------------

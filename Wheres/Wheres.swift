@@ -64,7 +64,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
         return _manager
     }()
     
-    private var isLocationTracking: Bool = false
+    private var locationUpdateTimer: Timer?
     
     //--------------------------------------------------------------------------
     //
@@ -78,32 +78,30 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     private func startTrackLocation()
     {
-        if !isLocationTracking
+        switch CLLocationManager.authorizationStatus()
         {
-            switch CLLocationManager.authorizationStatus()
-            {
             case .notDetermined :
                 locationManager.requestAlwaysAuthorization()
                 
             case .authorizedAlways, .authorizedWhenInUse :
-                locationManager.startUpdatingLocation()
+                self.doStartTrackLocation()
                 
             default:
                 print("Not allowed")
-            }
         }
+    }
+    
+    func doStartTrackLocation()
+    {
+        locationManager.startUpdatingLocation()
     }
     
     private func stopTrackLocation()
     {
-        if isLocationTracking
-        {
-            guard isLocationTracking else {
-                return
-            }
-            
-            locationManager.stopUpdatingLocation()            
-        }
+        locationManager.stopUpdatingLocation()
+        
+        locationUpdateTimer?.invalidate()
+        locationUpdateTimer = nil
     }
     
     //--------------------------------------------------------------------------
@@ -120,7 +118,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
                 manager.requestAlwaysAuthorization()
                 
             case .authorizedAlways, .authorizedWhenInUse :
-                manager.startUpdatingLocation()
+                self.doStartTrackLocation()
                 
             default:
                 print("Not allowed")
@@ -129,9 +127,13 @@ class Wheres : NSObject, CLLocationManagerDelegate
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
+        locationManager.stopUpdatingLocation()
+        
         guard let currentUser = account.currentUser, locations.count > 0 else {
             return
         }
+        
+        locationUpdateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(doStartTrackLocation), userInfo: nil, repeats: false)
         
         var mostRecentLocation = locations[0]
         
@@ -146,6 +148,8 @@ class Wheres : NSObject, CLLocationManagerDelegate
         geoFire.setLocation(mostRecentLocation, forKey: currentUser.uid)
         
         database.child("users/\(currentUser.uid)/location").setValue(["lat" : mostRecentLocation.coordinate.latitude, "lon" : mostRecentLocation.coordinate.longitude])
+        
+        print("Update location")
     }
     
     //--------------------------------------------------------------------------
