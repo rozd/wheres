@@ -112,10 +112,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             }
         }
-        else
-        {
-            self.avatarImageView.image = UIImage(named: "Anonymous");
-        }
     }
     
     //-------------------------------------

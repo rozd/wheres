@@ -21,16 +21,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Launch Image" translatesAutoresizingMaskIntoConstraints="NO" id="KCX-Gx-QeF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="KCX-Gx-QeF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wheres" translatesAutoresizingMaskIntoConstraints="NO" id="NCn-Yy-nS8">
+                                <rect key="frame" x="83" y="315" width="209" height="38"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="NCn-Yy-nS8" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0UZ-1T-vdY"/>
                             <constraint firstItem="KCX-Gx-QeF" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Muf-HW-mBi"/>
                             <constraint firstItem="KCX-Gx-QeF" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="NHB-XJ-7Rd"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="KCX-Gx-QeF" secondAttribute="bottom" id="SQp-WX-4U9"/>
                             <constraint firstAttribute="trailing" secondItem="KCX-Gx-QeF" secondAttribute="trailing" id="b1D-tz-9j2"/>
+                            <constraint firstItem="NCn-Yy-nS8" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="gfj-NK-sdr"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,6 +45,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Launch Image" width="320" height="568"/>
+        <image name="Background" width="320" height="568"/>
+        <image name="Wheres" width="209" height="38"/>
     </resources>
 </document>
