@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
+/**
+ * Connects view controllers with Account domain model
+ */
 class AuthViewModel : NSObject
 {
     //--------------------------------------------------------------------------

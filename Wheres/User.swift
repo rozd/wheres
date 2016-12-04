@@ -10,6 +10,9 @@ import Foundation
 import CoreLocation
 import FirebaseDatabase
 
+/**
+ * Entity objects, contains information about a firend. TODO: Rename to Friend
+ */
 class User : Equatable
 {
     //--------------------------------------------------------------------------

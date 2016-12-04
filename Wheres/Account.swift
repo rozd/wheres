@@ -19,6 +19,10 @@ extension Notification.Name
     public static let AccountUserDidLogout = Notification.Name("AccountUserDidLogout")
 }
 
+/**
+ * Responsible for all business logic related to current user, 
+ * register/login/logout/change profile
+ */
 class Account : NSObject
 {
     //--------------------------------------------------------------------------
@@ -30,6 +34,8 @@ class Account : NSObject
     override init()
     {
         super.init()
+        
+        // Listen for current user change and dispatch corresponded notification
         
         _stateChangeHandler = auth?.addStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
             
@@ -122,10 +128,14 @@ class Account : NSObject
             {
                 self.currentUser = user
                 
+                // User signed up by email so they doesn't have avatar, generate it for them
+                
                 if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640), backgroundColor: UIColor.white)
                 {
                     self.changeAvatar(newAvatar: tempAvatar)
                 }
+                
+                // save display name in database if specified
                 
                 if let displayName = displayName
                 {
@@ -192,6 +202,8 @@ class Account : NSObject
         guard let extraSmallAvatar = UIImageRoutines.image(image, scaledTo: CGSize(width: WheresAvatarExtraSmallSize, height: WheresAvatarExtraSmallSize)) else {
             return
         }
+        
+        // next update function uploads avatar and also updates current user's photoURL
         
         self.service.update(avatar: middleAvatar, withName: "middle", forUser: currentUser) { (avatarURL:URL?, error:Error?) in
             

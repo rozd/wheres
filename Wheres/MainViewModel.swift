@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Main view model, creates another view models
+ */
 class MainViewModel
 {
     //-------------------------------------------------------------------------

@@ -23,6 +23,9 @@ let WheresAvatarExtraSmallSize = 64
 
 let WheresFriendAnnotationViewSize = 32
 
+/**
+ * Main domain layer class, now mostly used for tracking current user location.
+ */
 class Wheres : NSObject, CLLocationManagerDelegate
 {
     //--------------------------------------------------------------------------
@@ -146,11 +149,13 @@ class Wheres : NSObject, CLLocationManagerDelegate
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        locationManager.stopUpdatingLocation()
-        
         guard let currentUser = account.currentUser, locations.count > 0 else {
             return
         }
+        
+        // stop updating location and start it in 10sec for batery life reason
+        
+        locationManager.stopUpdatingLocation()
         
         locationUpdateTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(doStartTrackLocation), userInfo: nil, repeats: false)
         
@@ -164,7 +169,11 @@ class Wheres : NSObject, CLLocationManagerDelegate
             }
         }
         
+        // save location in GeoFire db
+        
         geoFire.setLocation(mostRecentLocation, forKey: currentUser.uid)
+        
+        // also save it in Users db to make it available on users list
         
         database.child("users/\(currentUser.uid)/location").setValue(["lat" : mostRecentLocation.coordinate.latitude, "lon" : mostRecentLocation.coordinate.longitude])
     }
@@ -175,11 +184,13 @@ class Wheres : NSObject, CLLocationManagerDelegate
     //
     //--------------------------------------------------------------------------
     
+    // Starts update location for current user
     func handleAccountUserDidLogin(notification: Notification)
     {
         startTrackLocation()
     }
-    
+
+    // Stops update location as there is no current user
     func handleAccountUserDidLogout(notification: Notification)
     {
         stopTrackLocation()

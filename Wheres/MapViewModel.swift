@@ -22,6 +22,10 @@ protocol MapViewModelDelegate : class
     func mapViewModelDidUserAnnotationRemoved(annotation: UserAnnotation)
 }
 
+/**
+ * Connects view controllers with Wheres domain model. Keeps users lists for
+ * all user and for region. TODO: Move business logic into domain model.
+ */
 class MapViewModel
 {
     //-------------------------------------------------------------------------

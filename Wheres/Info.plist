@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need to track your location to allow other user see where you are</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need to track your location to allow other user see where you are</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -22,8 +18,26 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>43708675861b64a910242922186cb2a9ea388160</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict/>
+				<key>KitName</key>
+				<string>Crashlytics</string>
+			</dict>
+		</array>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need to track your location to allow other user see where you are</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need to track your location to allow other user see where you are</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We need access to your Photos to allow you change your profile avatar</string>
 	<key>UIBackgroundModes</key>

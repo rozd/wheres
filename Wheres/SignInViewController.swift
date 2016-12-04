@@ -39,6 +39,8 @@ class SignInViewController: UIViewController
     {
         super.viewDidLoad()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
     }
 
     override func viewWillAppear(_ animated: Bool)
@@ -76,6 +78,16 @@ class SignInViewController: UIViewController
         controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         self.present(controller, animated: true, completion: nil)
+    }
+    
+    //------------------------------------
+    //  MARK: Gestures
+    //------------------------------------
+    
+    func handleTap()
+    {
+        self.usernameTextField.resignFirstResponder()
+        self.passwordTextField.resignFirstResponder()
     }
     
     //------------------------------------

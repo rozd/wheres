@@ -9,6 +9,9 @@
 import Foundation
 import MapKit
 
+/**
+ * Entity object, describes position of Friedn. TODO: Rename to FriendAnnotation
+ */
 class UserAnnotation: NSObject, MKAnnotation
 {
     //--------------------------------------------------------------------------

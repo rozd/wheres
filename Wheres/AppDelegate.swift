@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -41,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         // Subscribe to notifications
         
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handleAccountUserDidLogin), name: .AccountUserDidLogin, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.handleAccountUserDidLogout), name: .AccountUserDidLogout, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogin(notification:)), name: .AccountUserDidLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogout(notification:)), name: .AccountUserDidLogout, object: nil)
         
         // Create Model
         
@@ -57,6 +59,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             self.mainViewController = mainViewController
             self.mainViewController?.viewModel = viewModel;
         }
+        
+        // Fabric initialization
+        
+        Fabric.with([Crashlytics.self])
         
         return true
     }

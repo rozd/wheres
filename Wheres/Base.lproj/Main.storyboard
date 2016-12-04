@@ -273,7 +273,7 @@
                                                 </constraints>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOd-Uc-Yq5">
                                                 <rect key="frame" x="0.0" y="40" width="398" height="32"/>
@@ -337,12 +337,12 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wheres" translatesAutoresizingMaskIntoConstraints="NO" id="kmb-un-atK">
-                                        <rect key="frame" x="100" y="40" width="214" height="50"/>
+                                        <rect key="frame" x="100" y="8" width="214" height="50"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Hdp-Pd-zA2" firstAttribute="centerY" secondItem="Nb5-dk-wPV" secondAttribute="centerY" id="Gee-tu-Mto"/>
-                                    <constraint firstItem="kmb-un-atK" firstAttribute="top" secondItem="Nb5-dk-wPV" secondAttribute="top" constant="40" id="Oje-8Z-z63"/>
+                                    <constraint firstItem="kmb-un-atK" firstAttribute="top" secondItem="Nb5-dk-wPV" secondAttribute="top" constant="8" id="Oje-8Z-z63"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="Hdp-Pd-zA2" secondAttribute="trailing" id="TD0-og-GN8">
                                         <variation key="heightClass=compact" constant="140"/>
                                         <variation key="widthClass=regular" constant="220"/>
@@ -408,7 +408,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KTD-bw-1TB">
                                         <rect key="frame" x="0.0" y="40" width="374" height="32"/>
@@ -417,7 +417,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0jf-a6-Gqu">
                                         <rect key="frame" x="0.0" y="80" width="374" height="32"/>
@@ -473,7 +473,7 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wheres" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-e1-JPN">
-                                <rect key="frame" x="100" y="40" width="214" height="50"/>
+                                <rect key="frame" x="100" y="8" width="214" height="50"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -485,7 +485,7 @@
                                 <variation key="widthClass=regular" constant="220"/>
                             </constraint>
                             <constraint firstItem="zvo-ot-KIo" firstAttribute="centerY" secondItem="g3U-XO-4aX" secondAttribute="centerY" id="USM-Xx-cfJ"/>
-                            <constraint firstItem="m2g-e1-JPN" firstAttribute="top" secondItem="EU6-Wb-acd" secondAttribute="bottom" constant="20" id="VSb-qc-jJz"/>
+                            <constraint firstItem="m2g-e1-JPN" firstAttribute="top" secondItem="EU6-Wb-acd" secondAttribute="bottom" constant="-12" id="VSb-qc-jJz"/>
                             <constraint firstItem="m2g-e1-JPN" firstAttribute="centerX" secondItem="g3U-XO-4aX" secondAttribute="centerX" id="hlG-1u-hm3"/>
                             <constraint firstAttribute="trailing" secondItem="7df-oH-SWw" secondAttribute="trailing" id="rS5-iJ-tP1"/>
                             <constraint firstItem="7df-oH-SWw" firstAttribute="top" secondItem="g3U-XO-4aX" secondAttribute="top" id="vTh-UB-dlG"/>

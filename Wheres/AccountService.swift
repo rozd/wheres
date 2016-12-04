@@ -12,6 +12,10 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
+/**
+ * Responsible for database and storage routines for current user, such as
+ * upload avatar into storage and save link to database.
+ */
 class AccountService
 {
     //--------------------------------------------------------------------------
@@ -46,9 +50,8 @@ class AccountService
         self.update(avatar: image, withName: name, forUser: user, completion: nil)
     }
     
-    /**
-     * @param completion
-     */
+    // Uploads specified image into the storage and save it as avatar with specified @name into database
+    // and also change photoURL for specified @user
     func update(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
     {
         self.upload(avatar: image, withName: name, forUser: user, completion: { (url: URL?, error: Error?) -> Void in
@@ -83,6 +86,7 @@ class AccountService
         self.upload(avatar: image, withName: name, forUser: user, completion: nil)
     }
     
+    // Uploads specified image into the storage and save it as avatar with specified @name into database
     func upload(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
     {
         DispatchQueue.global(qos: .background).async {

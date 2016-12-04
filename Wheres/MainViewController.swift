@@ -66,6 +66,9 @@ class MainViewController: UINavigationController, UINavigationControllerDelegate
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * Injects view model for specified view controller
+     */
     private func setViewModelFor(viewController controller: UIViewController)
     {
         if let signInViewController = controller as? SignInViewController

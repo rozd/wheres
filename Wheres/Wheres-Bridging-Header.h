@@ -9,6 +9,5 @@
 #ifndef Wheres_Bridging_Header_h
 #define Wheres_Bridging_Header_h
 
-//#import "GeoFire.h"
 
 #endif /* Wheres_Bridging_Header_h */

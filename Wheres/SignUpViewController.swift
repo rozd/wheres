@@ -34,6 +34,9 @@ class SignUpViewController: UIViewController, UITextViewDelegate
     {
         super.viewDidLoad()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+        
         self.disclaimerTextView.delegate = self
         
         let centeredParagraphStyle:NSMutableParagraphStyle = NSMutableParagraphStyle()
@@ -123,6 +126,17 @@ class SignUpViewController: UIViewController, UITextViewDelegate
     //  MARK: Delegates
     //
     //-------------------------------------------------------------------------
+    
+    //------------------------------------
+    //  MARK: Gestures
+    //------------------------------------
+    
+    func handleTap()
+    {
+        self.fullNameTextInput.resignFirstResponder()
+        self.emailTextInput.resignFirstResponder()
+        self.passwordTextInput.resignFirstResponder()
+    }
     
     //-------------------------------------
     //  MARK: - UITextViewDelegate
