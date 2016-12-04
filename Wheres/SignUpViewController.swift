@@ -68,9 +68,12 @@ class SignUpViewController: UIViewController
 
     @IBAction func signUpButtonTapped(_ sender: Any)
     {
-        if let email = self.emailTextInput.text, let password = self.passwordTextInput.text
-        {
-            self.viewModel.signUp(withEmail: email, password: password, displayName: fullNameTextInput.text)
+        guard let email = emailTextInput.text, let password = passwordTextInput.text, !email.isEmpty, !password.isEmpty else {
+            
+            showMessage(message: "Please fill both email and password", withTitle: "Info")
+            return
         }
+        
+        self.viewModel.signUp(withEmail: email, password: password, displayName: fullNameTextInput.text)
     }
 }

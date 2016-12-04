@@ -69,16 +69,28 @@ class SignInViewController: UIViewController
     //
     //-------------------------------------------------------------------------
     
+    private func showMessage(message: String, withTitle title: String)
+    {
+        let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        controller.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
     //------------------------------------
     //  MARK: Actions
     //------------------------------------
     
     @IBAction func signInButtonTapped(_ sender: Any)
     {
-        if let email = usernameTextField.text, let password = passwordTextField.text
-        {
-            self.viewModel.signIn(withEmail: email, password: password)
+        guard let email = usernameTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty else {
+            
+            showMessage(message: "Please fill both email and password", withTitle: "Info")
+            return
         }
+
+        self.viewModel.signIn(withEmail: email, password: password)
     }
     
     @IBAction func createAccountButtonTapped(_ sender: Any)

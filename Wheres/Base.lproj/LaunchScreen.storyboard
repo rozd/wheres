@@ -25,7 +25,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wheres" translatesAutoresizingMaskIntoConstraints="NO" id="NCn-Yy-nS8">
-                                <rect key="frame" x="83" y="315" width="209" height="38"/>
+                                <rect key="frame" x="108" y="315" width="160" height="38"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -46,6 +46,6 @@
     </scenes>
     <resources>
         <image name="Background" width="320" height="568"/>
-        <image name="Wheres" width="209" height="38"/>
+        <image name="Wheres" width="160" height="38"/>
     </resources>
 </document>

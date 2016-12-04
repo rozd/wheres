@@ -121,6 +121,7 @@
 				50B734481DEF280000AA77CB /* Main.storyboard */,
 				50B7344D1DEF280000AA77CB /* LaunchScreen.storyboard */,
 				50B7344B1DEF280000AA77CB /* Assets.xcassets */,
+				50D409B41DF413BA009CF061 /* Resources */,
 				50B734501DEF280100AA77CB /* Info.plist */,
 				50B734561DEF287400AA77CB /* GoogleService-Info.plist */,
 				50B734721DF099D800AA77CB /* Wheres-Bridging-Header.h */,
@@ -176,6 +177,13 @@
 				50D6E1431DF2D5380004C062 /* FriendAnnotationView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		50D409B41DF413BA009CF061 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		50D6E1401DF2C2E80004C062 /* Services */ = {
