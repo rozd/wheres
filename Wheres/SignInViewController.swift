@@ -93,6 +93,11 @@ class SignInViewController: UIViewController
         self.viewModel.signIn(withEmail: email, password: password)
     }
     
+    @IBAction func forgotPasswordTapped(_ sender: Any)
+    {
+        self.viewModel.forgotPassword()
+    }
+    
     @IBAction func createAccountButtonTapped(_ sender: Any)
     {
     }

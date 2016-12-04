@@ -63,4 +63,37 @@ class AuthViewModel : NSObject
     {
         account.changeAvatar(newAvatar: image)
     }
+    
+    func forgotPassword()
+    {
+        guard let currentViewController = UIAlertControllerRoutines.findTopmostViewController() else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: "Reset password", message: "Please enter your email below:", preferredStyle: .alert)
+        
+        let resetAction = UIAlertAction(title: "Reset", style: .default, handler: { (action: UIAlertAction) in
+            
+            if let emailTextField = alertController.textFields?[0], let email = emailTextField.text
+            {
+                self.account.resetPassword(forEmail: email)
+            }
+        })
+
+        alertController.addTextField { (textField: UITextField) in
+            
+            textField.placeholder = "Email"
+            
+            NotificationCenter.default.addObserver(forName: Notification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (notification: Notification) in
+                
+                resetAction.isEnabled = textField.text != nil && !textField.text!.isEmpty
+            })
+        }
+        
+        alertController.addAction(resetAction)
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        currentViewController.present(alertController, animated: true, completion: nil)
+    }
 }

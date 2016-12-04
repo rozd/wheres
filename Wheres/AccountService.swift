@@ -51,6 +51,40 @@ class AccountService
      */
     func update(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
     {
+        self.upload(avatar: image, withName: name, forUser: user, completion: { (url: URL?, error: Error?) -> Void in
+            
+            if let url = url
+            {
+                let changeRequest = user.profileChangeRequest()
+                
+                changeRequest.photoURL = url
+                
+                changeRequest.commitChanges(completion: { (error:Error?) in
+                    
+                    if error != nil
+                    {
+                        completion?(nil, error)
+                    }
+                    else
+                    {
+                        completion?(url, nil)
+                    }
+                })
+            }
+            else
+            {
+                completion?(nil, error)
+            }
+        })
+    }
+    
+    func upload(avatar image: UIImage, withName name: String, forUser user:FIRUser)
+    {
+        self.upload(avatar: image, withName: name, forUser: user, completion: nil)
+    }
+    
+    func upload(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
+    {
         DispatchQueue.global(qos: .background).async {
             
             guard let imageData = UIImagePNGRepresentation(image) else {
@@ -66,40 +100,19 @@ class AccountService
             let avatarRef = self.storage.child("users/\(user.uid)/public-data/avatar/\(name)")
             
             let _ = avatarRef.put(imageData, metadata: FIRStorageMetadata(dictionary: ["contentType" : "image/png"])) { (outputMetadata: FIRStorageMetadata?, error:Error?) in
+
+                if let url = outputMetadata?.downloadURL()
+                {
+                    // save also in the Database
+                    
+                    self.database.child("users/\(user.uid)/\(name)AvatarPath").setValue(url.absoluteString)
+                }
                 
                 DispatchQueue.main.async {
                     
-                    if error == nil
-                    {
-                        let changeRequest = user.profileChangeRequest()
-                        
-                        changeRequest.photoURL = outputMetadata?.downloadURL()
-                        
-                        changeRequest.commitChanges(completion: { (error:Error?) in
-                            
-                            if error != nil
-                            {
-                                DispatchQueue.main.async {
-                                    
-                                    completion?(nil, error)
-                                }
-                            }
-                        })
-                        
-                        // save also in the Database
-                    
-                        self.database.child("users/\(user.uid)/\(name)AvatarPath").setValue(changeRequest.photoURL?.absoluteString)
-                    }
-                    else
-                    {
-                        DispatchQueue.main.async {
-                            
-                            completion?(nil, error)
-                        }
-                    }
+                    completion?(outputMetadata?.downloadURL(), error)
                 }
             }
-
         }
     }
     

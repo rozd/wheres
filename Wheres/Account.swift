@@ -122,7 +122,7 @@ class Account : NSObject
             {
                 self.currentUser = user
                 
-                if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640))
+                if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640), backgroundColor: UIColor.white)
                 {
                     self.changeAvatar(newAvatar: tempAvatar)
                 }
@@ -153,6 +153,22 @@ class Account : NSObject
         {
             showMessage(message: error.localizedDescription, withTitle: "Error")
         }
+    }
+    
+    func resetPassword(forEmail email: String)
+    {
+        auth?.sendPasswordReset(withEmail: email, completion: { (error: Error?) in
+            
+            if error == nil
+            {
+                self.showMessage(message: "A password reset link was sent. Please check your email for further steps.", withTitle: "Confirmation")
+            }
+            else
+            {
+                
+                self.showMessage(message: error!.localizedDescription, withTitle: "Error")
+            }
+        })
     }
     
     //-------------------------------------
@@ -190,8 +206,8 @@ class Account : NSObject
             }
         }
         
-        self.service.update(avatar: smallAvatar, withName: "small", forUser: currentUser)
-        self.service.update(avatar: extraSmallAvatar, withName: "extraSmall", forUser: currentUser)
+        self.service.upload(avatar: smallAvatar, withName: "small", forUser: currentUser)
+        self.service.upload(avatar: extraSmallAvatar, withName: "extraSmall", forUser: currentUser)
     }
     
     func updateProfileWith(newDisplayName displayName: String)
@@ -220,7 +236,7 @@ class Account : NSObject
     
     private func showMessage(message: String, withTitle title: String)
     {
-        if let currentViewController = findTopmostViewController()
+        if let currentViewController = UIAlertControllerRoutines.findTopmostViewController()
         {
             let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
@@ -228,22 +244,5 @@ class Account : NSObject
             
             currentViewController.present(controller, animated: true, completion: nil)
         }
-    }
-    
-    private func findTopmostViewController() -> UIViewController?
-    {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        {
-            var controller = appDelegate.window?.rootViewController
-            
-            while controller?.presentedViewController != nil
-            {
-                controller = controller?.presentedViewController
-            }
-            
-            return controller
-        }
-        
-        return nil
     }
 }

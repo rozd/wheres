@@ -34,7 +34,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogin(notification:)), name: .AccountUserDidLogin, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogout(notification:)), name: .AccountUserDidLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogout(notification:)), name: .AccountUserDidLogout, object: nil)
     }
     
     deinit
@@ -66,6 +66,8 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     private var locationUpdateTimer: Timer?
     
+    private var isLocationTracking: Bool = false
+    
     //--------------------------------------------------------------------------
     //
     //  MARK: - Methods
@@ -78,6 +80,10 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     private func startTrackLocation()
     {
+        guard !isLocationTracking else {
+            return
+        }
+        
         switch CLLocationManager.authorizationStatus()
         {
             case .notDetermined :
@@ -93,15 +99,26 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     func doStartTrackLocation()
     {
+        isLocationTracking = true
+        
+        locationUpdateTimer?.invalidate()
+        locationUpdateTimer = nil
+        
         locationManager.startUpdatingLocation()
     }
     
     private func stopTrackLocation()
     {
+        guard isLocationTracking else {
+            return
+        }
+        
         locationManager.stopUpdatingLocation()
         
         locationUpdateTimer?.invalidate()
         locationUpdateTimer = nil
+        
+        isLocationTracking = false
     }
     
     //--------------------------------------------------------------------------
@@ -148,8 +165,6 @@ class Wheres : NSObject, CLLocationManagerDelegate
         geoFire.setLocation(mostRecentLocation, forKey: currentUser.uid)
         
         database.child("users/\(currentUser.uid)/location").setValue(["lat" : mostRecentLocation.coordinate.latitude, "lon" : mostRecentLocation.coordinate.longitude])
-        
-        print("Update location")
     }
     
     //--------------------------------------------------------------------------
