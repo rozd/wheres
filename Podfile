@@ -14,10 +14,9 @@ target 'Wheres' do
   pod 'Crashlytics'
 
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
-
   pod 'AlamofireImage', '~> 3.1'
-
   pod 'IGIdenticon', '0.4'
+  pod 'SVProgressHUD'
 
 end
 

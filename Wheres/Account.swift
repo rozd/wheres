@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 import IGIdenticon
+import SVProgressHUD
 
 extension Notification.Name
 {
@@ -103,7 +104,11 @@ class Account : NSObject
     
     func signIn(withEmail email: String, password: String)
     {
+        SVProgressHUD.show()
+        
         auth?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
+            
+            SVProgressHUD.dismiss()
             
             if user != nil
             {
@@ -122,8 +127,12 @@ class Account : NSObject
     
     func signUp(_ email:String, password:String, displayName: String?)
     {
+        SVProgressHUD.show()
+
         auth?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
             
+            SVProgressHUD.dismiss()
+
             if user != nil
             {
                 self.currentUser = user
@@ -167,8 +176,12 @@ class Account : NSObject
     
     func resetPassword(forEmail email: String)
     {
+        SVProgressHUD.show()
+
         auth?.sendPasswordReset(withEmail: email, completion: { (error: Error?) in
             
+            SVProgressHUD.dismiss()
+
             if error == nil
             {
                 self.showMessage(message: "A password reset link was sent. Please check your email for further steps.", withTitle: "Confirmation")
@@ -206,7 +219,7 @@ class Account : NSObject
         // next update function uploads avatar and also updates current user's photoURL
         
         self.service.update(avatar: middleAvatar, withName: "middle", forUser: currentUser) { (avatarURL:URL?, error:Error?) in
-            
+
             if error != nil
             {
                 self.showMessage(message: error!.localizedDescription, withTitle: "Error")

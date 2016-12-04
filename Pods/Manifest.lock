@@ -53,6 +53,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
   - GTMSessionFetcher/Core (1.1.7)
   - IGIdenticon (0.4)
+  - SVProgressHUD (2.0.4)
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.1)
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
   - IGIdenticon (= 0.4)
+  - SVProgressHUD
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -92,7 +94,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
+  SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
 
-PODFILE CHECKSUM: 237a6628c05c32bf11ac35dba9ff5306d9069a5b
+PODFILE CHECKSUM: d5e2cdb62ffe00faea8b9c8f0d6c516c765a320f
 
 COCOAPODS: 1.1.1
