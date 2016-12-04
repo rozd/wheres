@@ -39,4 +39,29 @@ extension UIColor
     {
         return UIColor(fromHex: 0xF0F66E)
     }
+    
+    open class var greenOlivine: UIColor
+    {
+        return UIColor(fromHex: 0xA8C686)
+    }
+    
+    open class var greenLoafer: UIColor
+    {
+        return UIColor(fromHex: 0xF1F8EB)
+    }
+    
+    open class var blueIndigo: UIColor
+    {
+        return UIColor(fromHex: 0x4F69C6)
+    }
+    
+    open class var blueCornflower: UIColor
+    {
+        return UIColor(fromHex: 0x6282F5)
+    }
+    
+    open class var blueMalibu: UIColor
+    {
+        return UIColor(fromHex: 0x829DFF)
+    }
 }

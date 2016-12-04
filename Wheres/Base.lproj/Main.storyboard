@@ -399,7 +399,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zvo-ot-KIo">
-                                <rect key="frame" x="20" y="292" width="374" height="152"/>
+                                <rect key="frame" x="20" y="244" width="374" height="248"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VUG-Cb-Yz5">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="32"/>
@@ -446,6 +446,30 @@
                                             <action selector="signUpButtonTapped:" destination="iTh-Pb-hxa" eventType="touchUpInside" id="UWa-cL-lvh"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDj-zW-Sgu">
+                                        <rect key="frame" x="0.0" y="160" width="374" height="16"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="auK-cm-PIO"/>
+                                        </constraints>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBj-tf-QRM">
+                                        <rect key="frame" x="0.0" y="184" width="374" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="6gt-l7-AAk"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="By signing up here you agree to our Terms of Use and Privacy Policy">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.6588235294117647" green="0.77647058823529413" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wheres" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-e1-JPN">
@@ -472,6 +496,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="disclaimerTextView" destination="VBj-tf-QRM" id="BX4-iu-BBJ"/>
                         <outlet property="emailTextInput" destination="KTD-bw-1TB" id="gHt-0D-6FG"/>
                         <outlet property="fullNameTextInput" destination="VUG-Cb-Yz5" id="vgw-9i-di6"/>
                         <outlet property="passwordTextInput" destination="0jf-a6-Gqu" id="1sf-yC-cwL"/>

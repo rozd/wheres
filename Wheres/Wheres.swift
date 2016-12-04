@@ -14,6 +14,8 @@ import GeoFire
 import FirebaseDatabase
 
 let WheresFirebaseStorageURL = "gs://whres-d5103.appspot.com"
+let WheresTermsOfUseLink = "https://whres-d5103.firebaseapp.com/terms"
+let WheresPrivacyPolicyLink = "https://whres-d5103.firebaseapp.com/privacy"
 
 let WheresAvatarMiddleSize = 256
 let WheresAvatarSmallSize = 96
