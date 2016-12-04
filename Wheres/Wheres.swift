@@ -14,8 +14,12 @@ import GeoFire
 import FirebaseDatabase
 
 let WheresFirebaseStorageURL = "gs://whres-d5103.appspot.com"
+let WheresGoogleAPIKey = "AIzaSyBTH13qKHrdA3_eolM3mi5G6F01sMueNuM"
+let WheresGoogleGeocodingEndpoint = "https://maps.googleapis.com/maps/api/geocode/json"
 let WheresTermsOfUseLink = "https://whres-d5103.firebaseapp.com/terms"
 let WheresPrivacyPolicyLink = "https://whres-d5103.firebaseapp.com/privacy"
+
+let WheresMapboxApiKey = "pk.eyJ1Ijoicm96ZCIsImEiOiJjaXdiNXVsc3QwMDF6MnpvNm5ib3d1eGNqIn0.17_n-dh_6fpW2iNHvGqFgg"
 
 let WheresAvatarMiddleSize = 256
 let WheresAvatarSmallSize = 96

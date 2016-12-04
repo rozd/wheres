@@ -123,19 +123,8 @@ class MapViewController: UIViewController, MapViewModelDelegate, UITableViewData
         let user = self.viewModel.users[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendViewCell") as! FriendViewCell
-        cell.displayNameLabel.text = user.displayName
         
-        if let avatarURL = user.smallAvatarURL
-        {
-            cell.avatarImageView.af_setImage(withURL: avatarURL)
-        }
-        
-        if let friendLocation = user.location, let myLocation = self.mapView.userLocation.location
-        {
-            let distance = myLocation.distance(from: friendLocation)
-            
-            cell.distanceLabel.text = MKDistanceFormatter().string(fromDistance: distance)
-        }
+        cell.populateFields(with: user, myLocation: self.mapView.userLocation.location)
         
         return cell
     }

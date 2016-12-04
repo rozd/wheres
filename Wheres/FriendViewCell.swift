@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
+import Alamofire
 
 class FriendViewCell: UITableViewCell
 {
@@ -23,6 +26,22 @@ class FriendViewCell: UITableViewCell
     @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var distanceLabel: UILabel!
+    
+    //--------------------------------------------------------------------------
+    //
+    //  MARK: Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private var currentFriend: User?
+    
+    //--------------------------------------------------------------------------
+    //
+    //  MARK: Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    
     
     //--------------------------------------------------------------------------
     //
@@ -49,5 +68,46 @@ class FriendViewCell: UITableViewCell
 
         // Configure the view for the selected state
     }
-
+    
+    //--------------------------------------------------------------------------
+    //
+    //  MARK: Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    func populateFields(with user: User, myLocation location: CLLocation?)
+    {
+        self.displayNameLabel.text = user.displayName
+        
+        if let avatarURL = user.smallAvatarURL
+        {
+            self.avatarImageView.af_setImage(withURL: avatarURL)
+        }
+        
+        if let friendLocation = user.location, let myLocation = location
+        {
+            let distance = myLocation.distance(from: friendLocation)
+            
+            self.distanceLabel.text = MKDistanceFormatter().string(fromDistance: distance)
+        }
+        
+        // cancel previous request
+        
+        
+        // request address by location once per user 
+        // TODO: add possibility to update after some delay
+        // TODO: or better store address for
+        
+        guard self.currentFriend?.uid != user.uid else {
+            self.currentFriend = user
+            return
+        }
+        
+        self.currentFriend = user
+        
+        if let friendLocation = self.currentFriend?.location
+        {
+//            Geocoder.sharedGeocoder
+        }
+    }
 }
