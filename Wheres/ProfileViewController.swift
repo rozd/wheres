@@ -114,6 +114,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+    func refreshDisplayName()
+    {
+        self.usernameLabel.text = self.viewModel.account.currentUser?.displayName
+    }
+    
     //-------------------------------------
     //  MARK: Alerts
     //-------------------------------------
@@ -189,6 +194,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if let keyPath = keyPath, keyPath == "currentUser"
         {
             refreshAvatar()
+            refreshDisplayName()
         }
     }
     
