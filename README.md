@@ -22,3 +22,5 @@ The relationship between these actors is next:
 |  ViewController  | <-- |  ViewModel  | <-- |  Model  | <-- |  Service  |
 |------------------|     |-------------|     |---------|     |-----------|
 ```
+
+The `––>` arrows indicates direct usage (meaning reference) and `<--` indirect usage such as delegate/notification handling/observing/callbacks/etc
