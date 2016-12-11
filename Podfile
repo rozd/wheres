@@ -9,6 +9,7 @@ target 'Wheres' do
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
+  pod 'GoogleSignIn'
 
   pod 'Fabric'
   pod 'Crashlytics'

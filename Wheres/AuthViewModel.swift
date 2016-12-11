@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 /**
  * Connects view controllers with Account domain model
@@ -99,4 +100,21 @@ class AuthViewModel : NSObject
         
         currentViewController.present(alertController, animated: true, completion: nil)
     }
+}
+
+// MARK: - GIDSignInDelegate
+
+extension AuthViewModel : GIDSignInDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil {
+            if let authentication = user.authentication {
+                let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+                account.signIn(withCredential: credential)
+            }
+        } else {
+            account.showMessage(message: error!.localizedDescription, withTitle: "Error")
+        }
+    }
+    
 }
