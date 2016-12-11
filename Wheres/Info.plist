@@ -36,6 +36,8 @@
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We need to track your location to allow other user see where you are</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to access your camera to allow you to take a picture for your avatar</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need to track your location to allow other user see where you are</string>
 	<key>NSPhotoLibraryUsageDescription</key>
