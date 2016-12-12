@@ -12,6 +12,7 @@ import FirebaseAuth
 import Fabric
 import Crashlytics
 import GoogleSignIn
+import FBSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -46,6 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
+        // Facebook Login configuration
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         // Subscribe to notifications
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogin(notification:)), name: .AccountUserDidLogin, object: nil)
@@ -75,7 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         let sourceApp = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
         
-        let handled = GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+        var handled = GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+        handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, options: options)
         
         return handled
     }

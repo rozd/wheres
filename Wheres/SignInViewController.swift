@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FBSDKLoginKit
 
 class SignInViewController: UIViewController
 {
@@ -122,6 +123,14 @@ class SignInViewController: UIViewController
     
     @IBAction func googleSignInTapped(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
+    }
+    
+    @IBAction func facebookSignInTapped(_ sender: Any) {
+        let manager = FBSDKLoginManager()
+        
+        manager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"],
+                      from: self,
+                      handler: viewModel.handleFBSDKLoginManagerRequestToken)
     }
     
     @IBAction func createAccountButtonTapped(_ sender: Any)

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
+import FBSDKLoginKit
 
 /**
  * Connects view controllers with Account domain model
@@ -103,7 +104,7 @@ class AuthViewModel : NSObject
 }
 
 
-// MARK: - GIDSignInDelegate
+// MARK: - Google SignIn Delegate
 
 extension AuthViewModel : GIDSignInDelegate {
     
@@ -112,8 +113,22 @@ extension AuthViewModel : GIDSignInDelegate {
             let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
             account.signIn(withCredential: credential)
         } else {
-            print(error?.localizedDescription ?? "Unknown error")
+            print(error?.localizedDescription ?? "GIDSIngIn: Unknown error")
         }
     }
     
+}
+
+// MARK: - Facebook Login Handlers
+
+extension AuthViewModel {
+    
+    func handleFBSDKLoginManagerRequestToken(result: FBSDKLoginManagerLoginResult?, error: Error?) {
+        if let accessToken = result?.token?.tokenString {
+            let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessToken)
+            account.signIn(withCredential: credential)
+        } else {
+            print(error?.localizedDescription ?? "FBLogin: Unknown error")
+        }
+    }
 }

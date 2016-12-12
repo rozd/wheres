@@ -12,6 +12,10 @@ target 'Wheres' do
 
   pod 'GoogleSignIn'
 
+  pod 'Bolts'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+
   pod 'Fabric'
   pod 'Crashlytics'
 

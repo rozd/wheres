@@ -110,16 +110,11 @@ class Account : NSObject
             
             SVProgressHUD.dismiss()
             
-            if user != nil
-            {
+            if user != nil {
                 self.currentUser = user
-            }
-            else if let errorMessage = error?.localizedDescription
-            {
+            } else if let errorMessage = error?.localizedDescription {
                 self.showMessage(message: errorMessage, withTitle: "Error")
-            }
-            else
-            {
+            } else {
                 self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
             }
         })
@@ -127,7 +122,11 @@ class Account : NSObject
     
     func signIn(withCredential credential: FIRAuthCredential)
     {
+        SVProgressHUD.show()
+        
         auth?.signIn(with: credential, completion: { (user: FIRUser?, error: Error?) in
+            
+            SVProgressHUD.dismiss()
             
             if user != nil {
                 self.currentUser = user

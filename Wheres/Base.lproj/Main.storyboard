@@ -269,7 +269,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hdp-Pd-zA2">
-                                        <rect key="frame" x="8" y="162.5" width="304" height="244"/>
+                                        <rect key="frame" x="8" y="162" width="304" height="244"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xRP-ip-jdO">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="32"/>
@@ -372,6 +372,9 @@
                                                                         <integer key="value" value="5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="facebookSignInTapped:" destination="ash-xc-aS3" eventType="touchUpInside" id="g9v-xj-g55"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xv6-PS-O5S">
                                                                 <rect key="frame" x="112" y="0.0" width="40" height="40"/>
