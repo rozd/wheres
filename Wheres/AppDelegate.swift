@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import Fabric
 import Crashlytics
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -41,6 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         FIRApp.configure()
         
+        // Google Sign In configuration
+        
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        
         // Subscribe to notifications
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUserDidLogin(notification:)), name: .AccountUserDidLogin, object: nil)
@@ -65,6 +70,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         Fabric.with([Crashlytics.self])
         
         return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        let sourceApp = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
+        
+        let handled = GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
+        
+        return handled
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

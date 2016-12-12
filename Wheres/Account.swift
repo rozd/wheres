@@ -125,6 +125,20 @@ class Account : NSObject
         })
     }
     
+    func signIn(withCredential credential: FIRAuthCredential)
+    {
+        auth?.signIn(with: credential, completion: { (user: FIRUser?, error: Error?) in
+            
+            if user != nil {
+                self.currentUser = user
+            } else if let errorMessage = error?.localizedDescription {
+                self.showMessage(message: errorMessage, withTitle: "Error")
+            } else {
+                self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
+            }
+        })
+    }
+    
     func signUp(_ email:String, password:String, displayName: String?)
     {
         SVProgressHUD.show()
@@ -259,7 +273,7 @@ class Account : NSObject
     //  Methods: Internal
     //-------------------------------------
     
-    private func showMessage(message: String, withTitle title: String)
+    func showMessage(message: String, withTitle title: String)
     {
         if let currentViewController = UIAlertControllerRoutines.findTopmostViewController()
         {
