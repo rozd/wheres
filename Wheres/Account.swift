@@ -122,6 +122,9 @@ class Account : NSObject
     
     func signIn(withCredential credential: FIRAuthCredential)
     {
+        // TODO: save avatar into db 
+        // TODO: propt email if doesn't exit
+        
         SVProgressHUD.show()
         
         auth?.signIn(with: credential, completion: { (user: FIRUser?, error: Error?) in

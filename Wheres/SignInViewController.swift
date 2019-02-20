@@ -10,6 +10,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import TwitterKit
 
 class SignInViewController: UIViewController
 {
@@ -127,10 +128,12 @@ class SignInViewController: UIViewController
     
     @IBAction func facebookSignInTapped(_ sender: Any) {
         let manager = FBSDKLoginManager()
-        
         manager.logIn(withReadPermissions: ["public_profile", "email", "user_friends"],
                       from: self,
                       handler: viewModel.handleFBSDKLoginManagerRequestToken)
+    }
+    @IBAction func twitterSignInTapped(_ sender: Any) {
+        Twitter.sharedInstance().logIn(completion: viewModel.handleTWTRLogInCompletion)
     }
     
     @IBAction func createAccountButtonTapped(_ sender: Any)

@@ -11,6 +11,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import TwitterKit
 
 /**
  * Connects view controllers with Account domain model
@@ -129,6 +130,20 @@ extension AuthViewModel {
             account.signIn(withCredential: credential)
         } else {
             print(error?.localizedDescription ?? "FBLogin: Unknown error")
+        }
+    }
+}
+
+// MARK: - Twitter Login Handlers
+
+extension AuthViewModel {
+    
+    func handleTWTRLogInCompletion(session: TWTRSession?, error: Error?) {
+        if let session = session {
+            let credential = FIRTwitterAuthProvider.credential(withToken: session.authToken, secret: session.authTokenSecret)
+            account.signIn(withCredential: credential)
+        } else {
+            print(error?.localizedDescription ?? "TWTRSession: Unknown error")
         }
     }
 }

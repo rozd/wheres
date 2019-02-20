@@ -392,6 +392,9 @@
                                                                         <integer key="value" value="5"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="twitterSignInTapped:" destination="ash-xc-aS3" eventType="touchUpInside" id="qx2-EB-2rQ"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csa-Qy-agE">
                                                                 <rect key="frame" x="168" y="0.0" width="40" height="40"/>

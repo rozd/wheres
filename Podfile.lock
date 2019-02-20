@@ -77,6 +77,10 @@ PODS:
     - GTMSessionFetcher/Core (= 1.1.7)
   - IGIdenticon (0.4)
   - SVProgressHUD (2.0.4)
+  - TwitterCore (2.7.0):
+    - Fabric
+  - TwitterKit (2.7.0):
+    - TwitterCore (= 2.7.0)
 
 DEPENDENCIES:
   - AlamofireImage (~> 3.1)
@@ -93,6 +97,8 @@ DEPENDENCIES:
   - GoogleSignIn
   - IGIdenticon (= 0.4)
   - SVProgressHUD
+  - TwitterCore
+  - TwitterKit
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -128,7 +134,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
   SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
+  TwitterCore: fbdbeaf6d2d20cf7c7aa4136fe5173c1c85df2e2
+  TwitterKit: 97e729ceea041d174126235bf6ff67dcf37772d4
 
-PODFILE CHECKSUM: 291e5e0fa053a12577090d856151bbb85d6ecc0f
+PODFILE CHECKSUM: 6acb82f495c9d6f7d1acd2b03924d95cdba32a33
 
 COCOAPODS: 1.1.1

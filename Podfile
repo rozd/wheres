@@ -18,6 +18,8 @@ target 'Wheres' do
 
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'TwitterKit'
+  pod 'TwitterCore'
 
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
   pod 'AlamofireImage', '~> 3.1'

@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import Fabric
 import Crashlytics
+import TwitterKit
 import GoogleSignIn
 import FBSDKLoginKit
 
@@ -49,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         // Facebook Login configuration
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+//        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Subscribe to notifications
         
@@ -72,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         // Fabric initialization
         
-        Fabric.with([Crashlytics.self])
+        Fabric.with([Crashlytics.self, Twitter.self])
         
         return true
     }
@@ -81,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         let sourceApp = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
         
         var handled = GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApp, annotation: [:])
-        handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, options: options)
+        handled = FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApp, annotation: [:])
         
         return handled
     }
