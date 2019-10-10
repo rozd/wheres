@@ -106,7 +106,7 @@ class Wheres : NSObject, CLLocationManagerDelegate
         }
     }
     
-    func doStartTrackLocation()
+    @objc func doStartTrackLocation()
     {
         isLocationTracking = true
         
@@ -189,13 +189,13 @@ class Wheres : NSObject, CLLocationManagerDelegate
     //--------------------------------------------------------------------------
     
     // Starts update location for current user
-    func handleAccountUserDidLogin(notification: Notification)
+    @objc func handleAccountUserDidLogin(notification: Notification)
     {
         startTrackLocation()
     }
 
     // Stops update location as there is no current user
-    func handleAccountUserDidLogout(notification: Notification)
+    @objc func handleAccountUserDidLogout(notification: Notification)
     {
         stopTrackLocation()
     }

@@ -88,7 +88,7 @@ class AuthViewModel : NSObject
             
             textField.placeholder = "Email"
             
-            NotificationCenter.default.addObserver(forName: Notification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (notification: Notification) in
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main, using: { (notification: Notification) in
                 
                 resetAction.isEnabled = textField.text != nil && !textField.text!.isEmpty
             })

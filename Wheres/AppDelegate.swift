@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     //
     //-------------------------------------------------------------------------
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // Firebase configuration
         
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         return true
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
 
@@ -144,12 +144,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     //
     //-------------------------------------------------------------------------
 
-    func handleAccountUserDidLogin(notification:Notification)
+    @objc func handleAccountUserDidLogin(notification:Notification)
     {
         showMainScreen()
     }
     
-    func handleAccountUserDidLogout(notification:Notification)
+    @objc func handleAccountUserDidLogout(notification:Notification)
     {
         showAuthScreen()
     }

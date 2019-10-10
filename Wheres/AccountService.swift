@@ -91,7 +91,7 @@ class AccountService
     {
         DispatchQueue.global(qos: .background).async {
             
-            guard let imageData = UIImagePNGRepresentation(image) else {
+            guard let imageData = image.pngData() else {
                 
                 DispatchQueue.main.async {
                     

@@ -46,35 +46,35 @@ class SignUpViewController: UIViewController, UITextViewDelegate
             NSMutableAttributedString(
                 string: "By signing up here you agree to our\nTerms of Use and Privacy Policy",
                 attributes:
-                [
-                    NSParagraphStyleAttributeName : centeredParagraphStyle
-                ]);
+                convertToOptionalNSAttributedStringKeyDictionary([
+                    convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle) : centeredParagraphStyle
+                ]));
         
         disclaimerString.addAttributes(
-            [
-                NSForegroundColorAttributeName : UIColor.greenOlivine
-            ],
+            convertToNSAttributedStringKeyDictionary([
+                convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : UIColor.greenOlivine
+            ]),
             range: NSRange(location: 0, length: 35));
         
         disclaimerString.addAttributes(
-            [
-                NSLinkAttributeName : NSURL(string: WheresTermsOfUseLink)!
-            ],
+            convertToNSAttributedStringKeyDictionary([
+                convertFromNSAttributedStringKey(NSAttributedString.Key.link) : NSURL(string: WheresTermsOfUseLink)!
+            ]),
             range: NSRange(location: 36, length: 12));
         
         disclaimerString.addAttributes(
-            [
-                NSForegroundColorAttributeName : UIColor.greenOlivine
-            ],
+            convertToNSAttributedStringKeyDictionary([
+                convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor) : UIColor.greenOlivine
+            ]),
             range: NSRange(location: 49, length: 3));
         
         disclaimerString.addAttributes(
-            [
-                NSLinkAttributeName : NSURL(string: WheresPrivacyPolicyLink)!
-            ],
+            convertToNSAttributedStringKeyDictionary([
+                convertFromNSAttributedStringKey(NSAttributedString.Key.link) : NSURL(string: WheresPrivacyPolicyLink)!
+            ]),
             range: NSRange(location: 53, length: 14));
         
-        self.disclaimerTextView.linkTextAttributes = [NSForegroundColorAttributeName : UIColor.blueMalibu]
+        self.disclaimerTextView.linkTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue : UIColor.blueMalibu])
         
         self.disclaimerTextView.attributedText = disclaimerString;
     }
@@ -131,7 +131,7 @@ class SignUpViewController: UIViewController, UITextViewDelegate
     //  MARK: Gestures
     //------------------------------------
     
-    func handleTap()
+    @objc func handleTap()
     {
         self.fullNameTextInput.resignFirstResponder()
         self.emailTextInput.resignFirstResponder()
@@ -151,4 +151,20 @@ class SignUpViewController: UIViewController, UITextViewDelegate
         
         return false
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSAttributedStringKeyDictionary(_ input: [String: Any]) -> [NSAttributedString.Key: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

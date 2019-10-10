@@ -93,7 +93,7 @@ class SignInViewController: UIViewController
     //  MARK: Gestures
     //------------------------------------
     
-    func handleTap()
+    @objc func handleTap()
     {
         self.usernameTextField.resignFirstResponder()
         self.passwordTextField.resignFirstResponder()

@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //  MARK: Actions
     //-------------------------------------
     
-    func avatarImageViewTapped(_ sender: Any)
+    @objc func avatarImageViewTapped(_ sender: Any)
     {
         let alertController = UIAlertController(title: "Change avatar", message: nil, preferredStyle: .actionSheet)
         
@@ -168,9 +168,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //
     //--------------------------------------------------------------------------
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
     {
-        if let avatarImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        if let avatarImage = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage
         {
             self.avatarImageView.image = avatarImage
             
@@ -198,4 +201,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

@@ -77,7 +77,7 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
 
-    dynamic var currentUser: FIRUser?
+    @objc dynamic var currentUser: FIRUser?
     {
         didSet
         {
