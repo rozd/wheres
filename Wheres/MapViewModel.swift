@@ -69,7 +69,7 @@ class MapViewModel
     
     weak var delegate: MapViewModelDelegate?
     
-    private var usersQuery: FIRDatabaseReference?
+    private var usersQuery: DatabaseReference?
     
     private var regionQuery: GFRegionQuery?
     
@@ -89,7 +89,7 @@ class MapViewModel
         
         var usersChangeHandle: UInt?
         
-        usersChangeHandle = self.usersQuery?.observe(.value, with: { (snapshot:FIRDataSnapshot) -> Void in
+        usersChangeHandle = self.usersQuery?.observe(.value, with: { (snapshot:DataSnapshot) -> Void in
             
             if let handle = usersChangeHandle
             {
@@ -104,11 +104,11 @@ class MapViewModel
             {
                 // ignore current user
                 
-                guard (child as! FIRDataSnapshot).key != self.account.currentUser?.uid else {
+                guard (child as! DataSnapshot).key != self.account.currentUser?.uid else {
                     continue
                 }
                 
-                let user = User(snapshot: child as! FIRDataSnapshot)
+                let user = User(snapshot: child as! DataSnapshot)
                 
                 self.users.append(user)
             }
@@ -116,7 +116,7 @@ class MapViewModel
             self.delegate?.mapViewModelDidUsersChange(users: self.users)
         })
         
-        self.usersQuery?.observe(.childAdded, with: { (snapshot: FIRDataSnapshot) in
+        self.usersQuery?.observe(.childAdded, with: { (snapshot: DataSnapshot) in
             
             guard snapshot.key != self.account.currentUser?.uid else {
                 return
@@ -129,7 +129,7 @@ class MapViewModel
             self.delegate?.mapViewModelDidUserAdded(user: user)
         })
         
-        self.usersQuery?.observe(.childRemoved, with: { (snapshot: FIRDataSnapshot) in
+        self.usersQuery?.observe(.childRemoved, with: { (snapshot: DataSnapshot) in
             
             if let found = self.findFriend(withUID: snapshot.key)
             {
@@ -139,7 +139,7 @@ class MapViewModel
             }
         })
         
-        self.usersQuery?.observe(.childChanged, with: { (snapshot: FIRDataSnapshot) in
+        self.usersQuery?.observe(.childChanged, with: { (snapshot: DataSnapshot) in
             
             guard snapshot.key != self.account.currentUser?.uid else {
                 return

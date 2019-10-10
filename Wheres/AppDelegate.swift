@@ -40,9 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         // Firebase configuration
         
-        FIRApp.configure()
+        FirebaseApp.configure()
        
-        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         // Subscribe to notifications
         

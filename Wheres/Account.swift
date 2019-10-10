@@ -38,7 +38,7 @@ class Account : NSObject
         
         // Listen for current user change and dispatch corresponded notification
         
-        _stateChangeHandler = auth?.addStateDidChangeListener({ (auth: FIRAuth, user: FIRUser?) in
+        _stateChangeHandler = auth.addStateDidChangeListener({ (auth: Auth, user: FirebaseAuth.User?) in
             
             self.currentUser = user
         })
@@ -48,7 +48,7 @@ class Account : NSObject
     {
         if _stateChangeHandler != nil
         {
-            auth?.removeStateDidChangeListener(_stateChangeHandler!);
+            auth.removeStateDidChangeListener(_stateChangeHandler!);
         }
     }
     
@@ -58,18 +58,18 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
     
-    private var auth = FIRAuth.auth()
+    private var auth = Auth.auth()
     
-    private lazy var storage = FIRStorage.storage().reference(forURL: WheresFirebaseStorageURL)
+    private lazy var storage = Storage.storage().reference(forURL: WheresFirebaseStorageURL)
     
-    private lazy var database = FIRDatabase.database().reference()
+    private lazy var database = Database.database().reference()
     
     private lazy var service: AccountService = {
 
         return AccountService(storage: self.storage, database: self.database)
     }()
     
-    private var _stateChangeHandler:FIRAuthStateDidChangeListenerHandle?
+    private var _stateChangeHandler:AuthStateDidChangeListenerHandle?
 
     //--------------------------------------------------------------------------
     //
@@ -77,7 +77,7 @@ class Account : NSObject
     //
     //--------------------------------------------------------------------------
 
-    @objc dynamic var currentUser: FIRUser?
+    @objc dynamic var currentUser: FirebaseAuth.User?
     {
         didSet
         {
@@ -105,77 +105,73 @@ class Account : NSObject
     func signIn(withEmail email: String, password: String)
     {
         SVProgressHUD.show()
-        
-        auth?.signIn(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
-            
+
+        auth.signIn(withEmail: email, password: password) { (result, error) in
             SVProgressHUD.dismiss()
-            
-            if user != nil {
-                self.currentUser = user
-            } else if let errorMessage = error?.localizedDescription {
-                self.showMessage(message: errorMessage, withTitle: "Error")
-            } else {
-                self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
+            guard let user = result?.user else {
+                if let errorMessage = error?.localizedDescription {
+                    self.showMessage(message: errorMessage, withTitle: "Error")
+                } else {
+                    self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
+                }
+                return
             }
-        })
+            self.currentUser = user
+        }
     }
     
-    func signIn(withCredential credential: FIRAuthCredential)
+    func signIn(withCredential credential: AuthCredential)
     {
-        auth?.signIn(with: credential, completion: { (user: FIRUser?, error: Error?) in
-            
-            if user != nil {
-                self.currentUser = user
-            } else if let errorMessage = error?.localizedDescription {
-                self.showMessage(message: errorMessage, withTitle: "Error")
-            } else {
-                self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
+        auth.signIn(with: credential) { (result, error) in
+            guard let user = result?.user else {
+                if let errorMessage = error?.localizedDescription {
+                    self.showMessage(message: errorMessage, withTitle: "Error")
+                } else {
+                    self.showMessage(message: "Could not to login you due to unknown error", withTitle: "Error")
+                }
+                return
             }
-        })
+            self.currentUser = user
+        }
     }
     
     func signUp(_ email:String, password:String, displayName: String?)
     {
         SVProgressHUD.show()
 
-        auth?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error: Error?) in
-            
+        auth.createUser(withEmail: email, password: password) { (result, error) in
             SVProgressHUD.dismiss()
 
-            if user != nil
-            {
-                self.currentUser = user
-                
-                // User signed up by email so they doesn't have avatar, generate it for them
-                
-                if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640), backgroundColor: UIColor.white)
-                {
-                    self.changeAvatar(newAvatar: tempAvatar)
+            guard let user = result?.user else {
+                if let errorMessage = error?.localizedDescription {
+                    self.showMessage(message: errorMessage, withTitle: "Error")
+                } else {
+                    self.showMessage(message: "Could not to create an account due to unknown error.", withTitle: "Error")
                 }
-                
-                // save display name in database if specified
-                
-                if let displayName = displayName
-                {
-                    self.updateProfileWith(newDisplayName: displayName)
-                }
+                return
             }
-            else if let errorMessage = error?.localizedDescription
-            {
-                self.showMessage(message: errorMessage, withTitle: "Error")
+
+            self.currentUser = user
+
+            // User signed up by email so they doesn't have avatar, generate it for them
+
+            if let tempAvatar = Identicon().icon(from: email, size: CGSize(width: 640, height: 640), backgroundColor: UIColor.white) {
+                self.changeAvatar(newAvatar: tempAvatar)
             }
-            else
-            {
-                self.showMessage(message: "Could not to create an account due to unknown error.", withTitle: "Error")
+
+            // save display name in database if specified
+
+            if let displayName = displayName {
+                self.updateProfileWith(newDisplayName: displayName)
             }
-        })
+        }
     }
     
     func signOut()
     {
         do
         {
-            try auth?.signOut()
+            try auth.signOut()
         }
         catch let error as NSError
         {
@@ -187,7 +183,7 @@ class Account : NSObject
     {
         SVProgressHUD.show()
 
-        auth?.sendPasswordReset(withEmail: email, completion: { (error: Error?) in
+        auth.sendPasswordReset(withEmail: email, completion: { (error: Error?) in
             
             SVProgressHUD.dismiss()
 
@@ -209,7 +205,7 @@ class Account : NSObject
 
     func changeAvatar(newAvatar image: UIImage)
     {
-        guard let currentUser = auth?.currentUser else {
+        guard let currentUser = auth.currentUser else {
             return
         }
         
@@ -246,7 +242,7 @@ class Account : NSObject
     
     func updateProfileWith(newDisplayName displayName: String)
     {
-        guard let currentUser = auth?.currentUser else {
+        guard let currentUser = auth.currentUser else {
             return
         }
 

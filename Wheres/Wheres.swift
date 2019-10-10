@@ -59,9 +59,9 @@ class Wheres : NSObject, CLLocationManagerDelegate
     
     let account = Account()
     
-    lazy var database = FIRDatabase.database().reference()
+    lazy var database = Database.database().reference()
     
-    lazy var geoFire: GeoFire = GeoFire(firebaseRef: FIRDatabase.database().reference().child("locations"))
+    lazy var geoFire: GeoFire = GeoFire(firebaseRef: Database.database().reference().child("locations"))
     
     private lazy var locationManager: CLLocationManager =
     {

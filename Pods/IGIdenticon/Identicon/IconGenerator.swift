@@ -17,13 +17,13 @@ public protocol IconGenerator {
     func icon(from number: UInt32, size: CGSize) -> CGImage
 }
 
-#if os(iOS) || os(watchOS) || os(tvOS)
+#if os(iOS) || os(tvOS)
 public extension IconGenerator {
     func icon(from number: UInt32, size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
         let scaledSize = CGSize(width: size.width * scale, height: size.height * scale)
         let cgImage: CGImage = icon(from: number, size: scaledSize)
 
-        return UIImage(cgImage: cgImage, scale: scale, orientation: UIImageOrientation.up)
+        return UIImage(cgImage: cgImage, scale: scale, orientation: UIImage.Orientation.up)
     }
     func icon(from data: Data, size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage {
         let hash = jenkinsHash(from: data)

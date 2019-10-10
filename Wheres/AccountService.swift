@@ -24,7 +24,7 @@ class AccountService
     //
     //--------------------------------------------------------------------------
     
-    init(storage: FIRStorageReference, database: FIRDatabaseReference)
+    init(storage: StorageReference, database: DatabaseReference)
     {
         self.storage = storage
         self.database = database
@@ -36,8 +36,8 @@ class AccountService
     //
     //--------------------------------------------------------------------------
     
-    let storage: FIRStorageReference
-    let database: FIRDatabaseReference
+    let storage: StorageReference
+    let database: DatabaseReference
     
     //--------------------------------------------------------------------------
     //
@@ -45,20 +45,20 @@ class AccountService
     //
     //--------------------------------------------------------------------------
     
-    func update(avatar image: UIImage, withName name: String, forUser user:FIRUser)
+    func update(avatar image: UIImage, withName name: String, forUser user:FirebaseAuth.User)
     {
         self.update(avatar: image, withName: name, forUser: user, completion: nil)
     }
     
     // Uploads specified image into the storage and save it as avatar with specified @name into database
     // and also change photoURL for specified @user
-    func update(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
+    func update(avatar image: UIImage, withName name: String, forUser user:FirebaseAuth.User, completion: ((URL?, Error?) -> Void)?)
     {
         self.upload(avatar: image, withName: name, forUser: user, completion: { (url: URL?, error: Error?) -> Void in
             
             if let url = url
             {
-                let changeRequest = user.profileChangeRequest()
+                let changeRequest = user.createProfileChangeRequest()
                 
                 changeRequest.photoURL = url
                 
@@ -81,13 +81,13 @@ class AccountService
         })
     }
     
-    func upload(avatar image: UIImage, withName name: String, forUser user:FIRUser)
+    func upload(avatar image: UIImage, withName name: String, forUser user:FirebaseAuth.User)
     {
         self.upload(avatar: image, withName: name, forUser: user, completion: nil)
     }
     
     // Uploads specified image into the storage and save it as avatar with specified @name into database
-    func upload(avatar image: UIImage, withName name: String, forUser user:FIRUser, completion: ((URL?, Error?) -> Void)?)
+    func upload(avatar image: UIImage, withName name: String, forUser user:FirebaseAuth.User, completion: ((URL?, Error?) -> Void)?)
     {
         DispatchQueue.global(qos: .background).async {
             
@@ -103,26 +103,36 @@ class AccountService
             
             let avatarRef = self.storage.child("users/\(user.uid)/public-data/avatar/\(name)")
             
-            let _ = avatarRef.put(imageData, metadata: FIRStorageMetadata(dictionary: ["contentType" : "image/png"])) { (outputMetadata: FIRStorageMetadata?, error:Error?) in
+            let _ = avatarRef.putData(imageData, metadata: StorageMetadata(dictionary: ["contentType" : "image/png"])) { (outputMetadata: StorageMetadata?, error:Error?) in
 
-                if let url = outputMetadata?.downloadURL()
-                {
-                    // save also in the Database
-                    
-                    self.database.child("users/\(user.uid)/\(name)AvatarPath").setValue(url.absoluteString)
+                guard error == nil else {
+                    DispatchQueue.main.async {
+                        completion?(nil, error)
+                    }
+                    return
                 }
-                
-                DispatchQueue.main.async {
-                    
-                    completion?(outputMetadata?.downloadURL(), error)
+
+                avatarRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        DispatchQueue.main.async {
+                            completion?(nil, error)
+                        }
+                        return
+                    }
+
+                    self.database.child("users/\(user.uid)/\(name)AvatarPath").setValue(downloadURL.absoluteString)
+
+                    DispatchQueue.main.async {
+                        completion?(downloadURL, error)
+                    }
                 }
             }
         }
     }
     
-    func update(displayName newDisplayName: String, forUser user: FIRUser, completion: ((Error?) -> Void)?)
+    func update(displayName newDisplayName: String, forUser user: FirebaseAuth.User, completion: ((Error?) -> Void)?)
     {
-        let changeRequest = user.profileChangeRequest()
+        let changeRequest = user.createProfileChangeRequest()
         
         changeRequest.displayName = newDisplayName
         
