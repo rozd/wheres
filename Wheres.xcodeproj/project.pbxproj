@@ -253,7 +253,7 @@
 					50B734401DEF27FD00AA77CB = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = GL9F4DL9W9;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1100;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -271,6 +271,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -561,7 +562,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.rozd.Wheres;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -577,7 +578,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.rozd.Wheres;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
