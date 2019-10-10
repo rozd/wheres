@@ -2,6 +2,11 @@ PODS:
   - Alamofire (4.0.1)
   - AlamofireImage (3.1.0):
     - Alamofire (~> 4.0)
+  - AppAuth (1.2.0):
+    - AppAuth/Core (= 1.2.0)
+    - AppAuth/ExternalUserAgent (= 1.2.0)
+  - AppAuth/Core (1.2.0)
+  - AppAuth/ExternalUserAgent (1.2.0)
   - Crashlytics (3.8.3):
     - Fabric (~> 1.6.3)
   - Fabric (1.6.11)
@@ -40,6 +45,10 @@ PODS:
     - Firebase/Database (~> 3.2)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - GoogleSignIn (5.0.0):
+    - AppAuth (~> 1.1)
+    - GTMAppAuth (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/DebugUtils (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
@@ -51,7 +60,14 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.0)
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)"
   - "GoogleToolboxForMac/NSString+URLArguments (2.1.0)"
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.7):
+    - GTMSessionFetcher/Full (= 1.1.7)
   - GTMSessionFetcher/Core (1.1.7)
+  - GTMSessionFetcher/Full (1.1.7):
+    - GTMSessionFetcher/Core (= 1.1.7)
   - IGIdenticon (0.4)
   - SVProgressHUD (2.0.4)
 
@@ -64,6 +80,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
+  - GoogleSignIn
   - IGIdenticon (= 0.4)
   - SVProgressHUD
 
@@ -71,6 +88,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AlamofireImage
+    - AppAuth
     - Crashlytics
     - Fabric
     - Firebase
@@ -81,8 +99,10 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseStorage
     - GoogleInterchangeUtilities
+    - GoogleSignIn
     - GoogleSymbolUtilities
     - GoogleToolboxForMac
+    - GTMAppAuth
     - GTMSessionFetcher
     - IGIdenticon
     - SVProgressHUD
@@ -99,6 +119,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   AlamofireImage: bb8c8351c51cb1633bb6be69b6dbbaff37ce65b7
+  AppAuth: bce82c76043657c99d91e7882e8a9e1a93650cd4
   Crashlytics: 2b6dbe138a42395577cfa73dfa1aa7248cadf39e
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Firebase: fdbecadb7b5cbef2774852d4fa659b9daf11f2af
@@ -110,12 +131,14 @@ SPEC CHECKSUMS:
   FirebaseStorage: c50aa353bf484072704e73b4aff1bd47adb735c4
   GeoFire: ef73103b88eb026c27212c40ea16757d6ad362ea
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleSignIn: a62edd0516721d2a3db1259a5681b91f9b41c06a
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   IGIdenticon: f9bbe354e8a3583f71c391395689a03115fe58c4
   SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
 
-PODFILE CHECKSUM: d5e2cdb62ffe00faea8b9c8f0d6c516c765a320f
+PODFILE CHECKSUM: ea65ad17104ac2192f581ad7d20782c7012243dd
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.7.4

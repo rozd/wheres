@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import Fabric
 import Crashlytics
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         // Firebase configuration
         
         FIRApp.configure()
+       
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
         // Subscribe to notifications
         
@@ -65,6 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         Fabric.with([Crashlytics.self])
         
         return true
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -147,4 +154,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         showAuthScreen()
     }
 }
-

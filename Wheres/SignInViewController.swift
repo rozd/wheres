@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class SignInViewController: UIViewController
 {
@@ -24,6 +25,7 @@ class SignInViewController: UIViewController
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var googleSignInButton: GIDSignInButton!
     
     var viewModel:AuthViewModel!
     
@@ -40,7 +42,14 @@ class SignInViewController: UIViewController
         super.viewDidLoad()
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGestureRecognizer.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        // google sign in
+        
+        GIDSignIn.sharedInstance().delegate = viewModel
+        
+        googleSignInButton.style = .iconOnly
     }
 
     override func viewWillAppear(_ animated: Bool)
@@ -112,5 +121,15 @@ class SignInViewController: UIViewController
     
     @IBAction func createAccountButtonTapped(_ sender: Any)
     {
+    }
+    
+    @IBAction func googleSignInAction(_ sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
+    }
+    
+    @IBAction func googleSignInButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func googleSignInButtonValueChanged(_ sender: Any) {
     }
 }
