@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '10.1'
 
 target 'Wheres' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -15,7 +15,7 @@ target 'Wheres' do
   pod 'Crashlytics'
 
   pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
-  pod 'AlamofireImage', '~> 3.1'
+  pod 'AlamofireImage'
   pod 'IGIdenticon'
   pod 'SVProgressHUD'
 
